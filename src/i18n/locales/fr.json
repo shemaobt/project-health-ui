@@ -125,7 +125,9 @@
     "listening": "Écoute…",
     "listeningHint": "Écoute · parlez naturellement, nous attendrons que vous terminiez.",
     "typeHint": "Astuce : touchez le micro pour parler, ou tapez simplement. Les deux sont les bienvenus.",
-    "presentCount": "{count} présents"
+    "presentCount": "{count} présents",
+    "sessionExpired": "Votre session d'entretien a expiré. Veuillez recommencer pour continuer.",
+    "startOver": "Recommencer"
   },
   "completion": {
     "inProgressTitle": "Rassemblement de ce que nous avons entendu…",

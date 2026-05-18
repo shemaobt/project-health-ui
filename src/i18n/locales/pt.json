@@ -125,7 +125,9 @@
     "listening": "Escutando…",
     "listeningHint": "Escutando · falem naturalmente, esperaremos vocês terminarem.",
     "typeHint": "Dica: toque o microfone para falar, ou apenas digite. Ambos são bem-vindos.",
-    "presentCount": "{count} presentes"
+    "presentCount": "{count} presentes",
+    "sessionExpired": "Sua sessão de entrevista expirou. Por favor, comece novamente para continuar.",
+    "startOver": "Começar novamente"
   },
   "completion": {
     "inProgressTitle": "Reunindo o que ouvimos…",

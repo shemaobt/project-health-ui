@@ -125,7 +125,9 @@
     "listening": "Mendengarkan…",
     "listeningHint": "Mendengarkan · bicara dengan alami, kami akan menunggu sampai Anda selesai.",
     "typeHint": "Tip: ketuk mikrofon untuk berbicara, atau cukup ketik. Keduanya diterima.",
-    "presentCount": "{count} hadir"
+    "presentCount": "{count} hadir",
+    "sessionExpired": "Sesi wawancara Anda telah berakhir. Silakan mulai lagi untuk melanjutkan.",
+    "startOver": "Mulai lagi"
   },
   "completion": {
     "inProgressTitle": "Mengumpulkan yang kami dengar…",

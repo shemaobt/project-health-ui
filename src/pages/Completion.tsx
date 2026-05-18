@@ -3,14 +3,16 @@ import { useLocation } from 'wouter';
 import { StatusOrb, PrimaryButton, Alert } from '../components/primitives';
 import { useT } from '../lib/i18n';
 import { useInterviewStore } from '../lib/stores/interviewStore';
+import { InterviewTokenExpiredError } from '../lib/api/interviews';
 
-type Stage = 'pending' | 'done' | 'blocked' | 'error';
+type Stage = 'pending' | 'done' | 'blocked' | 'error' | 'expired';
 
 export default function Completion() {
   const { t } = useT();
   const [, setLocation] = useLocation();
   const interviewId = useInterviewStore((s) => s.interviewId);
   const complete = useInterviewStore((s) => s.complete);
+  const resetStore = useInterviewStore((s) => s.reset);
 
   const [stage, setStage] = useState<Stage>('pending');
   const [blockedMessage, setBlockedMessage] = useState<string | null>(null);
@@ -31,11 +33,20 @@ export default function Completion() {
           setStage('blocked');
         }
       } catch (err) {
-        console.error('completeInterview failed', err);
-        setStage('error');
+        if (err instanceof InterviewTokenExpiredError) {
+          setStage('expired');
+        } else {
+          console.error('completeInterview failed', err);
+          setStage('error');
+        }
       }
     })();
   }, [interviewId, complete, setLocation]);
+
+  const startOver = () => {
+    resetStore();
+    setLocation('/');
+  };
 
   if (stage === 'blocked') {
     return (
@@ -46,6 +57,19 @@ export default function Completion() {
             <PrimaryButton onClick={() => interviewId && setLocation(`/interview/${interviewId}`)}>
               {t('common.back')}
             </PrimaryButton>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (stage === 'expired') {
+    return (
+      <div className="min-h-screen flex items-center justify-center screen-enter">
+        <div className="text-center max-w-md px-5 sm:px-8 animate-fade-up">
+          <Alert tone="error">{t('interview.sessionExpired')}</Alert>
+          <div className="mt-6">
+            <PrimaryButton onClick={startOver}>{t('interview.startOver')}</PrimaryButton>
           </div>
         </div>
       </div>

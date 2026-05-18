@@ -4,8 +4,9 @@ import { langLabel, type Message as MessagePayload } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
 import { useInterviewStore } from '../lib/stores/interviewStore';
 import { useVoiceInput, LANGUAGE_SPEECH_CODES } from '../lib/hooks/useVoiceInput';
+import { InterviewTokenExpiredError } from '../lib/api/interviews';
 import {
-  DottedEyebrow, DividerEyebrow, Eyebrow, FacilitatorAvatar, Icon, MicButton, PrimaryButton, TypingIndicator,
+  Alert, DottedEyebrow, DividerEyebrow, Eyebrow, FacilitatorAvatar, Icon, MicButton, PrimaryButton, TypingIndicator,
 } from '../components/primitives';
 import { BreadcrumbHeader, Message, PacingHint } from '../components/composites';
 
@@ -27,7 +28,9 @@ export default function Interview({ interviewId }: InterviewProps) {
 
   const [typing, setTyping] = useState(false);
   const [draft, setDraft] = useState('');
+  const [expired, setExpired] = useState(false);
   const scrollRef = useRef<HTMLElement>(null);
+  const resetStore = useInterviewStore((s) => s.reset);
 
   useEffect(() => {
     if (storeId && storeId !== interviewId) {
@@ -53,10 +56,19 @@ export default function Interview({ interviewId }: InterviewProps) {
     try {
       await sendMessage(text);
     } catch (err) {
-      console.error('sendMessage failed', err);
+      if (err instanceof InterviewTokenExpiredError) {
+        setExpired(true);
+      } else {
+        console.error('sendMessage failed', err);
+      }
     } finally {
       setTyping(false);
     }
+  };
+
+  const startOver = () => {
+    resetStore();
+    setLocation('/');
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -94,6 +106,21 @@ export default function Interview({ interviewId }: InterviewProps) {
       <main className="flex-1 overflow-y-auto nice-scroll" ref={scrollRef}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
           <DividerEyebrow className="mb-8">{t('interview.dateMarker', { language: langName })}</DividerEyebrow>
+
+          {expired && (
+            <div className="mb-8 animate-fade-up">
+              <Alert tone="error">
+                <div className="flex flex-col gap-3">
+                  <span>{t('interview.sessionExpired')}</span>
+                  <div>
+                    <PrimaryButton onClick={startOver} className="!px-4 !py-2 text-xs">
+                      {t('interview.startOver')}
+                    </PrimaryButton>
+                  </div>
+                </div>
+              </Alert>
+            </div>
+          )}
 
           <div className="space-y-6">
             {messages.map((m, idx) => (

@@ -125,7 +125,9 @@
     "listening": "Nasikiliza…",
     "listeningHint": "Nasikiliza · sema kwa kawaida, tutasubiri mmalize.",
     "typeHint": "Kidokezo: gusa kipaza sauti kusema, au andika tu. Yote yanakaribishwa.",
-    "presentCount": "{count} wapo"
+    "presentCount": "{count} wapo",
+    "sessionExpired": "Kipindi chako cha mahojiano kimemalizika. Tafadhali anza tena ili kuendelea.",
+    "startOver": "Anza tena"
   },
   "completion": {
     "inProgressTitle": "Kukusanya tuliyosikia…",

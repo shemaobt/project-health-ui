@@ -125,7 +125,9 @@
     "listening": "Listening…",
     "listeningHint": "Listening · speak naturally, we'll wait for you to finish.",
     "typeHint": "Tip: tap the mic to speak, or just type. Either is welcome.",
-    "presentCount": "{count} present"
+    "presentCount": "{count} present",
+    "sessionExpired": "Your interview session has timed out. Please start over to continue.",
+    "startOver": "Start over"
   },
   "completion": {
     "inProgressTitle": "Gathering what we heard…",

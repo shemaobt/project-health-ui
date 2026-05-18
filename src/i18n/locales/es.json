@@ -125,7 +125,9 @@
     "listening": "Escuchando…",
     "listeningHint": "Escuchando · hablen con naturalidad, esperaremos a que terminen.",
     "typeHint": "Consejo: toquen el micrófono para hablar, o simplemente escriban. Ambos son bienvenidos.",
-    "presentCount": "{count} presentes"
+    "presentCount": "{count} presentes",
+    "sessionExpired": "Su sesión de entrevista ha expirado. Por favor, comience de nuevo para continuar.",
+    "startOver": "Comenzar de nuevo"
   },
   "completion": {
     "inProgressTitle": "Recogiendo lo que escuchamos…",
