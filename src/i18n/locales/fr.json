@@ -71,6 +71,8 @@
     "eyebrow": "Accès en attente",
     "title": "En attente d'approbation.",
     "intro": "Votre compte est créé, mais un administrateur ne vous a pas encore accordé l'accès au tableau de bord de santé du projet. Lorsqu'il le fera, cette page redirigera automatiquement — n'hésitez pas à la laisser ouverte.",
+    "crossAppNote": "Si vous utilisez déjà une autre application Shema, nous avons reconnu votre compte et soumis votre demande d'accès en votre nom.",
+    "autoCheckCaption": "Vérification à nouveau toutes les 5 secondes…",
     "signOut": "Se déconnecter",
     "checkAgain": "Vérifier à nouveau"
   },

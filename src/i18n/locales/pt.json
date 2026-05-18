@@ -71,6 +71,8 @@
     "eyebrow": "Acesso pendente",
     "title": "Aguardando aprovação.",
     "intro": "Sua conta foi criada, mas um administrador ainda não concedeu acesso ao painel de saúde do projeto. Quando isso acontecer, esta página será redirecionada automaticamente — fique à vontade para deixá-la aberta.",
+    "crossAppNote": "Se você já usa outro aplicativo Shema, reconhecemos sua conta e enviamos sua solicitação de acesso em seu nome.",
+    "autoCheckCaption": "Verificando novamente a cada 5 segundos…",
     "signOut": "Sair",
     "checkAgain": "Verificar novamente"
   },

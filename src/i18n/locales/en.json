@@ -71,6 +71,8 @@
     "eyebrow": "Access pending",
     "title": "Waiting for approval.",
     "intro": "Your account is created but an administrator hasn't granted you access to the project-health dashboard yet. Once they do, this page will redirect automatically — feel free to leave it open.",
+    "crossAppNote": "If you already use another Shema app, we recognized your account and submitted your access request on your behalf.",
+    "autoCheckCaption": "Checking again every 5 seconds…",
     "signOut": "Sign out",
     "checkAgain": "Check again"
   },
