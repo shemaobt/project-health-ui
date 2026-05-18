@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import type { SupportedLanguage } from '../api/types';
+import { speakText } from '../api/voice';
 
 interface UseTextToSpeechOptions {
-  languageCode: string;
+  language: SupportedLanguage | null;
+  interviewId: string | null;
+  interviewToken: string | null;
 }
 
 interface SpeakArgs {
@@ -9,50 +13,59 @@ interface SpeakArgs {
   text: string;
 }
 
-export function useTextToSpeech({ languageCode }: UseTextToSpeechOptions) {
-  const [playingId, setPlayingId] = useState<number | string | null>(null);
-  const [isSupported] = useState(
-    () => typeof window !== 'undefined' && 'speechSynthesis' in window,
-  );
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+function base64ToBlob(base64: string, mimeType: string): Blob {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+  return new Blob([bytes], { type: mimeType });
+}
 
-  useEffect(() => {
-    return () => {
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
-    };
+export function useTextToSpeech({ language, interviewId, interviewToken }: UseTextToSpeechOptions) {
+  const [playingId, setPlayingId] = useState<number | string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const urlRef = useRef<string | null>(null);
+
+  const isSupported = typeof window !== 'undefined' && typeof window.Audio !== 'undefined';
+
+  const teardown = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = '';
+      audioRef.current = null;
+    }
+    if (urlRef.current) {
+      URL.revokeObjectURL(urlRef.current);
+      urlRef.current = null;
+    }
   }, []);
 
+  useEffect(() => () => teardown(), [teardown]);
+
   const cancel = useCallback(() => {
-    if (!isSupported) return;
-    window.speechSynthesis.cancel();
+    teardown();
     setPlayingId(null);
-  }, [isSupported]);
+  }, [teardown]);
 
   const speak = useCallback(
-    ({ id, text }: SpeakArgs) => {
-      if (!isSupported || !text) return;
-      window.speechSynthesis.cancel();
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = languageCode;
-      utterance.rate = 1;
-      utterance.pitch = 1;
-
-      const voices = window.speechSynthesis.getVoices();
-      const voiceForLang = voices.find((v) => v.lang === languageCode)
-        ?? voices.find((v) => v.lang.startsWith(languageCode.split('-')[0]));
-      if (voiceForLang) utterance.voice = voiceForLang;
-
-      utterance.onend = () => setPlayingId((current) => (current === id ? null : current));
-      utterance.onerror = () => setPlayingId((current) => (current === id ? null : current));
-
-      utteranceRef.current = utterance;
+    async ({ id, text }: SpeakArgs) => {
+      if (!isSupported || !text || !interviewId || !interviewToken || !language) return;
+      teardown();
       setPlayingId(id);
-      window.speechSynthesis.speak(utterance);
+      try {
+        const res = await speakText(interviewId, text, language, interviewToken);
+        const blob = base64ToBlob(res.audio_base64, res.mime_type || 'audio/mpeg');
+        const url = URL.createObjectURL(blob);
+        urlRef.current = url;
+        const audio = new Audio(url);
+        audio.onended = () => setPlayingId((cur) => (cur === id ? null : cur));
+        audio.onerror = () => setPlayingId((cur) => (cur === id ? null : cur));
+        audioRef.current = audio;
+        await audio.play();
+      } catch {
+        setPlayingId((cur) => (cur === id ? null : cur));
+      }
     },
-    [isSupported, languageCode],
+    [isSupported, interviewId, interviewToken, language, teardown],
   );
 
   const toggle = useCallback(
@@ -61,19 +74,10 @@ export function useTextToSpeech({ languageCode }: UseTextToSpeechOptions) {
         cancel();
         return;
       }
-      speak(args);
+      void speak(args);
     },
     [playingId, speak, cancel],
   );
 
   return { playingId, isSupported, speak, cancel, toggle };
 }
-
-export const LANGUAGE_TTS_CODES: Record<string, string> = {
-  en: 'en-US',
-  pt: 'pt-BR',
-  es: 'es-ES',
-  fr: 'fr-FR',
-  id: 'id-ID',
-  sw: 'sw-KE',
-};
