@@ -79,17 +79,23 @@ export const useInterviewStore = create<Store>()(
         if (!interviewId || !interviewToken) {
           throw new Error('No active interview');
         }
+        const rollbackLength = messages.length;
         const teamTurn: MessageDto = {
           role: 'team',
           content,
           timestamp: new Date().toISOString(),
         };
         set({ messages: [...messages, teamTurn] });
-        const res = await interviewsApi.postMessage(interviewId, content, interviewToken);
-        set((s) => ({
-          messages: [...s.messages, res.facilitator_message],
-          coverage: res.coverage,
-        }));
+        try {
+          const res = await interviewsApi.postMessage(interviewId, content, interviewToken);
+          set((s) => ({
+            messages: [...s.messages, res.facilitator_message],
+            coverage: res.coverage,
+          }));
+        } catch (err) {
+          set((s) => ({ messages: s.messages.slice(0, rollbackLength) }));
+          throw err;
+        }
       },
 
       complete: async () => {
