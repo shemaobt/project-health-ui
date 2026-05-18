@@ -8,7 +8,7 @@ import type { Interview } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
 
 export function pdfFilename(I: Interview, type: 'team' | 'admin', labels?: { team: string; admin: string }): string {
-  const safe = (s: string) => (s || '').replace(/[\/\\:*?"<>|]/g, '').trim();
+  const safe = (s: string) => (s || '').replace(/[/\\:*?"<>|]/g, '').trim();
   const teamLabel = labels?.team ?? 'Team Report';
   const adminLabel = labels?.admin ?? 'Admin Report';
   const label = type === 'team' ? teamLabel : adminLabel;

@@ -44,13 +44,9 @@ function getSpeechRecognitionCtor(): Ctor | null {
 
 export function useVoiceInput({ languageCode, onResult }: UseVoiceInputOptions) {
   const [isListening, setIsListening] = useState(false);
-  const [isSupported, setIsSupported] = useState(false);
+  const [isSupported] = useState(() => !!getSpeechRecognitionCtor());
   const [error, setError] = useState('');
   const recognitionRef = useRef<SpeechRecognitionAny | null>(null);
-
-  useEffect(() => {
-    setIsSupported(!!getSpeechRecognitionCtor());
-  }, []);
 
   useEffect(() => {
     return () => {
