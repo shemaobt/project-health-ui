@@ -133,7 +133,12 @@ export default function Interview({ interviewId }: InterviewProps) {
               />
             ))}
             {typing && (
-              <div className="flex items-start gap-3 animate-fade-in">
+              <div
+                className="flex items-start gap-3 animate-fade-in"
+                role="status"
+                aria-live="polite"
+                aria-label={t('ariaLabel.facilitatorComposing')}
+              >
                 <FacilitatorAvatar />
                 <div className="mt-1">
                   <Eyebrow size="tertiary" tone="earth400" className="block mb-1">{t('interview.facilitator')}</Eyebrow>

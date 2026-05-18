@@ -447,7 +447,9 @@ export function TypingIndicator() {
 export function MicButton({ listening, onClick }: { listening: boolean; onClick?: () => void }) {
   const { t } = useT();
   return (
-    <button onClick={onClick}
+    <button
+      type="button"
+      onClick={onClick}
       aria-label={listening ? t('ariaLabel.stopListening') : t('ariaLabel.startVoice')}
       aria-pressed={listening}
       className={`focus-warm relative shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200
