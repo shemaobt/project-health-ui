@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from 'react';
-import { Redirect } from 'wouter';
+import { Redirect, useLocation } from 'wouter';
 import { useAuthStore } from '../lib/stores/authStore';
 import { PH_ADMIN_ROLE } from '../lib/constants';
 
@@ -17,12 +17,27 @@ export default function ProtectedRoute({
   requireRoleKey,
 }: Props) {
   const { user, tokens, loaded, appRoles, refreshMe } = useAuthStore();
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     if (!loaded && tokens?.access) {
       void refreshMe();
     }
   }, [loaded, tokens?.access, refreshMe]);
+
+  const isAuthenticated = !!tokens?.access && !!user;
+  const lacksAppRole =
+    isAuthenticated &&
+    requireAppRole &&
+    !user?.is_platform_admin &&
+    (appRoles.length === 0 ||
+      (!!requireRoleKey && !appRoles.includes(requireRoleKey)));
+
+  useEffect(() => {
+    if (loaded && isAuthenticated && lacksAppRole) {
+      setLocation('/pending-approval');
+    }
+  }, [loaded, isAuthenticated, lacksAppRole, setLocation]);
 
   if (!loaded && tokens?.access) {
     return (
@@ -32,21 +47,16 @@ export default function ProtectedRoute({
     );
   }
 
-  if (!tokens?.access || !user) {
+  if (!isAuthenticated) {
     return <Redirect to="/login" />;
   }
 
-  if (requirePlatformAdmin && !user.is_platform_admin) {
+  if (requirePlatformAdmin && !user?.is_platform_admin) {
     return <Redirect to="/" />;
   }
 
-  if (requireAppRole && !user.is_platform_admin) {
-    if (appRoles.length === 0) {
-      return <Redirect to="/pending-approval" />;
-    }
-    if (requireRoleKey && !appRoles.includes(requireRoleKey)) {
-      return <Redirect to="/pending-approval" />;
-    }
+  if (lacksAppRole) {
+    return <Redirect to="/pending-approval" />;
   }
 
   return <>{children}</>;
