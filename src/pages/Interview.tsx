@@ -4,6 +4,7 @@ import { langLabel, type Message as MessagePayload } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
 import { useInterviewStore } from '../lib/stores/interviewStore';
 import { useVoiceInput, LANGUAGE_SPEECH_CODES } from '../lib/hooks/useVoiceInput';
+import { useTextToSpeech, LANGUAGE_TTS_CODES } from '../lib/hooks/useTextToSpeech';
 import { InterviewTokenExpiredError } from '../lib/api/interviews';
 import {
   Alert, DottedEyebrow, DividerEyebrow, Eyebrow, FacilitatorAvatar, Icon, MicButton, PrimaryButton, TypingIndicator,
@@ -43,10 +44,12 @@ export default function Interview({ interviewId }: InterviewProps) {
   }, [messages, typing]);
 
   const speechLang = language ? LANGUAGE_SPEECH_CODES[language] ?? 'en-US' : 'en-US';
+  const ttsLang = language ? LANGUAGE_TTS_CODES[language] ?? 'en-US' : 'en-US';
   const voice = useVoiceInput({
     languageCode: speechLang,
     onResult: (text) => setDraft((prev) => prev ? `${prev} ${text}`.trim() : text),
   });
+  const tts = useTextToSpeech({ languageCode: ttsLang });
 
   const handleSend = async () => {
     const text = draft.trim();
@@ -127,8 +130,8 @@ export default function Interview({ interviewId }: InterviewProps) {
               <Message
                 key={`${m.timestamp}-${idx}`}
                 message={toLegacyMessage(m, idx)}
-                playing={false}
-                onTogglePlay={() => undefined}
+                playing={tts.playingId === idx}
+                onTogglePlay={() => tts.toggle({ id: idx, text: m.content })}
                 respondents={[]}
               />
             ))}
@@ -181,9 +184,15 @@ export default function Interview({ interviewId }: InterviewProps) {
           </div>
           <div className="mt-2.5 flex items-center justify-between text-[11px] text-earth-400 px-1">
             <span>
-              {voice.isListening
-                ? <><span className="text-clay-600" aria-hidden="true">●</span> {t('interview.listeningHint')}</>
-                : t('interview.typeHint')}
+              {voice.error ? (
+                <span className="text-clay-700">{voice.error}</span>
+              ) : !voice.isSupported ? (
+                <span className="text-earth-400">{t('interview.typeHint')}</span>
+              ) : voice.isListening ? (
+                <><span className="text-clay-600" aria-hidden="true">●</span> {t('interview.listeningHint')}</>
+              ) : (
+                t('interview.typeHint')
+              )}
             </span>
             <span>{t('interview.presentCount', { count: teamTurnCount })}</span>
           </div>
