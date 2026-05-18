@@ -129,7 +129,8 @@
     "typeHint": "Dica: toque o microfone para falar, ou apenas digite. Ambos são bem-vindos.",
     "presentCount": "{count} presentes",
     "sessionExpired": "Sua sessão de entrevista expirou. Por favor, comece novamente para continuar.",
-    "startOver": "Começar novamente"
+    "startOver": "Começar novamente",
+    "sendError": "Algo deu errado ao enviar sua mensagem. Por favor, tente novamente em um momento."
   },
   "completion": {
     "inProgressTitle": "Reunindo o que ouvimos…",

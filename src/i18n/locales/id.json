@@ -129,7 +129,8 @@
     "typeHint": "Tip: ketuk mikrofon untuk berbicara, atau cukup ketik. Keduanya diterima.",
     "presentCount": "{count} hadir",
     "sessionExpired": "Sesi wawancara Anda telah berakhir. Silakan mulai lagi untuk melanjutkan.",
-    "startOver": "Mulai lagi"
+    "startOver": "Mulai lagi",
+    "sendError": "Terjadi kesalahan saat mengirim pesan Anda. Silakan coba lagi sebentar."
   },
   "completion": {
     "inProgressTitle": "Mengumpulkan yang kami dengar…",

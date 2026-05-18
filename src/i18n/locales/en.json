@@ -129,7 +129,8 @@
     "typeHint": "Tip: tap the mic to speak, or just type. Either is welcome.",
     "presentCount": "{count} present",
     "sessionExpired": "Your interview session has timed out. Please start over to continue.",
-    "startOver": "Start over"
+    "startOver": "Start over",
+    "sendError": "Something went wrong sending your message. Please try again in a moment."
   },
   "completion": {
     "inProgressTitle": "Gathering what we heard…",

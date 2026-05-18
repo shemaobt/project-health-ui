@@ -30,6 +30,7 @@ export default function Interview({ interviewId }: InterviewProps) {
   const [typing, setTyping] = useState(false);
   const [draft, setDraft] = useState('');
   const [expired, setExpired] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLElement>(null);
   const resetStore = useInterviewStore((s) => s.reset);
 
@@ -54,6 +55,7 @@ export default function Interview({ interviewId }: InterviewProps) {
   const handleSend = async () => {
     const text = draft.trim();
     if (!text || typing) return;
+    setSendError(null);
     setDraft('');
     setTyping(true);
     try {
@@ -62,6 +64,8 @@ export default function Interview({ interviewId }: InterviewProps) {
       if (err instanceof InterviewTokenExpiredError) {
         setExpired(true);
       } else {
+        setSendError(t('interview.sendError'));
+        setDraft(text);
         console.error('sendMessage failed', err);
       }
     } finally {
@@ -122,6 +126,12 @@ export default function Interview({ interviewId }: InterviewProps) {
                   </div>
                 </div>
               </Alert>
+            </div>
+          )}
+
+          {!expired && sendError && (
+            <div className="mb-8 animate-fade-up">
+              <Alert tone="error">{sendError}</Alert>
             </div>
           )}
 
