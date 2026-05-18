@@ -1,0 +1,219 @@
+{
+  "common": {
+    "back": "Retour",
+    "returnHome": "Retour à l'accueil",
+    "signOut": "Se déconnecter",
+    "backToDashboard": "← Retour au tableau de bord",
+    "backToHome": "← Retour à l'accueil"
+  },
+  "brand": {
+    "name": "OBT Project Health",
+    "tagline": "Une réflexion, pas un test",
+    "eyebrow": "Traduction Biblique Orale"
+  },
+  "languageMenu": {
+    "trigger": "Changer de langue",
+    "label": "Langue"
+  },
+  "welcome": {
+    "heroBefore": "Une conversation sur la",
+    "heroAccent": "santé",
+    "heroAfter": " de votre projet.",
+    "mobileLede": "Une réflexion guidée — avec vos propres mots.",
+    "desktopLede": "C'est une réflexion guidée, pas un test. Nous poserons des questions ouvertes et écouterons. Il n'y a pas de mauvaises réponses — juste votre équipe, avec vos propres mots, nous racontant comment le travail avance vraiment.",
+    "whatToExpect": "À quoi s'attendre",
+    "hideDetails": "Masquer les détails",
+    "reassureTimeLabel": "Prend environ 30–45 minutes",
+    "reassureTimeDetail": "Prenez votre temps. Il n'y a pas d'urgence.",
+    "reassureVoiceLabel": "Parlez ou tapez, comme vous préférez",
+    "reassureVoiceDetail": "Une personne parle au nom de l'équipe. D'autres peuvent participer.",
+    "reassureCareLabel": "Ce que vous partagez reste avec votre équipe",
+    "reassureCareDetail": "Le rapport d'équipe est immédiatement le vôtre.",
+    "sectionEyebrow": "Commençons",
+    "sectionTitle": "Parlez-nous un peu de votre équipe.",
+    "interviewLanguageLabel": "Langue de l'entretien",
+    "projectField": "Nom du projet",
+    "projectPlaceholder": "ex. OBT Hauts Plateaux Andins",
+    "teamField": "Nom de l'équipe",
+    "teamPlaceholder": "ex. Conteurs Quechua",
+    "pauseNote": "Vous pouvez faire une pause et revenir à tout moment.",
+    "begin": "Commencer l'entretien",
+    "blessing": "\"Que vos paroles soient entendues, et que l'œuvre de vos mains prospère.\"",
+    "supervisorLink": "Connexion superviseur →",
+    "footerName": "Évaluation OBT Project Health",
+    "footerAvailable": "Disponible en {languages}"
+  },
+  "interview": {
+    "inConversation": "En conversation",
+    "dateMarker": "Aujourd'hui · entretien en {language}",
+    "finish": "Terminer l'entretien",
+    "facilitator": "Facilitateur",
+    "placeholder": "Parlez ou tapez la réponse de votre équipe…",
+    "listening": "Écoute…",
+    "listeningHint": "Écoute · parlez naturellement, nous attendrons que vous terminiez.",
+    "typeHint": "Astuce : touchez le micro pour parler, ou tapez simplement. Les deux sont les bienvenus.",
+    "presentCount": "{count} présents"
+  },
+  "completion": {
+    "inProgressTitle": "Rassemblement de ce que nous avons entendu…",
+    "inProgressDetail": "Respirez. Nous assemblons les mots de votre équipe.",
+    "readyTitle": "Votre rapport est prêt.",
+    "readyDetail": "Merci pour le soin que vous avez apporté à cette conversation."
+  },
+  "teamReport": {
+    "dateEyebrow": "Rapport d'équipe · {date}",
+    "titleBefore": "Pour",
+    "titleAfter": ", avec reconnaissance.",
+    "mobileLede": "Ce que nous avons entendu de {project} — avec vos propres mots.",
+    "desktopLedeBefore": "Une réflexion de votre conversation sur",
+    "desktopLedeAfter": ". Ce qui suit est ce que nous avons entendu — avec vos propres mots.",
+    "contextHeading": "Contexte de l'entretien",
+    "contextRespondent": "Répondant",
+    "contextLanguage": "Langue",
+    "contextParticipants": "Participants présents",
+    "contextTeamSize": "Taille de l'équipe",
+    "contextProject": "Projet",
+    "contextTeam": "Équipe",
+    "contextRoles": "Rôles",
+    "teamSizeValue": "{count} membres",
+    "sectionWhatWeHeard": "Ce que nous avons entendu",
+    "sectionStrengths": "Forces",
+    "sectionGrowth": "Où vous pourriez grandir",
+    "sectionNextSteps": "Prochaines étapes possibles",
+    "growthDisclaimer": "Offert avec soin, non comme critique.",
+    "closingFooter": "OBT Project Health · en conversation avec votre équipe",
+    "shareNote": "Ce rapport reste avec votre équipe. Partagez-le comme il vous semble juste — imprimez-le, lisez-le à voix haute, ou prenez le temps d'y réfléchir."
+  },
+  "adminSignIn": {
+    "eyebrow": "Connexion superviseur",
+    "title": "Bon retour.",
+    "intro": "Entrez votre e-mail et nous vous enverrons un lien de connexion unique.",
+    "emailLabel": "Adresse e-mail",
+    "emailPlaceholder": "vous@organisation.org",
+    "notAuthorized": "Cet e-mail n'est pas encore autorisé. Demandez à un administrateur existant de vous inviter.",
+    "send": "Envoyer le lien magique",
+    "sending": "Envoi du lien…",
+    "sentTitle": "Vérifiez votre e-mail",
+    "sentDetailBefore": "Nous avons envoyé un lien de connexion à",
+    "sentDetailAfter": ". Ouvrez-le sur cet appareil pour continuer.",
+    "demoNote": "(Pour cette démonstration, nous l'ouvrirons pour vous dans un instant.)",
+    "inviteOnly": "Pas de compte superviseur ? Demandez à un administrateur existant de vous inviter — l'accès est sur invitation uniquement.",
+    "supervisorArea": "Évaluation OBT Project Health · Espace superviseur"
+  },
+  "adminDashboard": {
+    "signedInAs": "Connecté en tant que",
+    "eyebrow": "Tableau de bord superviseur",
+    "title": "Comment vont les équipes.",
+    "intro": "Conversations récentes avec les équipes de traduction du réseau. Ouvrez un rapport pour voir ce qu'elles ont partagé — et à quoi penser ensuite.",
+    "invite": "Inviter un superviseur",
+    "statTotalLabel": "Total des entretiens",
+    "statTotalHint": "tous projets confondus",
+    "statCompletedLabel": "Terminés",
+    "statCompletedHint": "rapports prêts à lire",
+    "statInProgressLabel": "En cours",
+    "statInProgressHint": "en train d'être écoutés",
+    "listTitle": "Tous les entretiens",
+    "listTotal": "{count} au total",
+    "footerNote": "Chaque entretien est l'histoire d'une équipe. Lisez avec soin.",
+    "teamReport": "Rapport d'équipe",
+    "adminReport": "Rapport admin",
+    "openAdminReport": "Ouvrir le rapport admin",
+    "viewTeamReport": "Voir le rapport d'équipe"
+  },
+  "adminReport": {
+    "interviewEyebrow": "Entretien · {date}",
+    "confidential": "Rapport admin · confidentiel",
+    "contextHeading": "Contexte de l'entretien",
+    "contextRespondent": "Répondant",
+    "contextParticipants": "Participants",
+    "contextLanguage": "Langue",
+    "contextTeamSize": "Taille de l'équipe",
+    "contextProject": "Projet",
+    "contextTeam": "Équipe",
+    "participantCount": "{count} présents",
+    "domainsEyebrow": "Répartition par domaine",
+    "domainsTitle": "Sept domaines de durabilité",
+    "topRisks": "Principaux risques · inter-domaines",
+    "actions": "Actions recommandées",
+    "qualityEyebrow": "Qualité de l'entretien",
+    "qualityTitle": "À quel point nous avons entendu l'équipe",
+    "footerNote": "La version de l'équipe de cette conversation est sous \"Rapport d'équipe\" — langage de soutien, sans notes.",
+    "toggleTeam": "Rapport d'équipe",
+    "toggleAdmin": "Rapport admin",
+    "toggleAriaLabel": "Vue du rapport"
+  },
+  "inviteAdmin": {
+    "eyebrow": "Inviter un superviseur",
+    "title": "Amenez quelqu'un de confiance.",
+    "intro": "Les superviseurs peuvent lire les rapports d'équipe et la vue admin quantitative. Nous leur enverrons un lien unique pour configurer l'accès.",
+    "emailLabel": "Son adresse e-mail",
+    "emailPlaceholder": "collegue@organisation.org",
+    "send": "Envoyer l'invitation",
+    "sending": "Envoi…",
+    "sent": "Invitation envoyée. Ils recevront un lien magique sous peu.",
+    "duplicate": "Cet e-mail est déjà autorisé — pas besoin d'inviter à nouveau.",
+    "invalid": "Cela ne ressemble pas à une adresse e-mail valide.",
+    "authorizedLabel": "Actuellement autorisés · {count}",
+    "invitedBy": "Invité par",
+    "footerNote": "La confiance voyage avec les personnes, pas avec les permissions. Invitez avec soin."
+  },
+  "pacingHint": {
+    "sufficient": "Vous en avez assez pour terminer quand vous voulez.",
+    "listening": "Nous écoutons encore pour un tableau plus complet."
+  },
+  "statusPill": {
+    "completed": "Terminé",
+    "inProgress": "En cours"
+  },
+  "scoreLabel": {
+    "healthy": "Sain, avec des axes de croissance ciblés",
+    "forming": "En formation — des forces significatives émergent",
+    "vulnerable": "Vulnérable — soutien concret nécessaire",
+    "atRisk": "À risque — une intervention directe est justifiée"
+  },
+  "scoreScale": {
+    "atRisk": "1.0 · à risque",
+    "forming": "3.0 · en formation",
+    "thriving": "5.0 · prospère",
+    "overall": "Indice global de durabilité"
+  },
+  "domain": {
+    "confidence": "Confiance {value}/5",
+    "risks": "Risques",
+    "outOf": "/ 5"
+  },
+  "qualityRow": {
+    "coverage": "Étendue de la couverture",
+    "coverageHint": "domaines abordés",
+    "evidence": "Profondeur des preuves",
+    "evidenceHint": "éléments de preuve concrets",
+    "avgConfidence": "Confiance moyenne",
+    "avgConfidenceHint": "sur tous les domaines"
+  },
+  "interviewRow": {
+    "inConversation": "en conversation…",
+    "started": "commencé le {date}"
+  },
+  "pdf": {
+    "teamReportSuffix": "Rapport d'Équipe",
+    "adminReportSuffix": "Rapport Admin",
+    "download": "Télécharger le PDF",
+    "preparing": "Préparation…",
+    "teamPdf": "PDF d'équipe",
+    "adminPdf": "PDF admin"
+  },
+  "speakerLabel": {
+    "facilitator": "Facilitateur",
+    "team": "{name} (au nom de l'équipe)"
+  },
+  "ariaLabel": {
+    "sendMessage": "Envoyer le message",
+    "leaveInterview": "Quitter l'entretien",
+    "stopListening": "Arrêter l'écoute",
+    "startVoice": "Démarrer l'entrée vocale",
+    "backToDashboard": "Retour au tableau de bord",
+    "play": "Lire à voix haute",
+    "pause": "Pause",
+    "facilitatorComposing": "Le facilitateur écrit"
+  }
+}
