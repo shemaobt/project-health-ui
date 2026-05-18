@@ -71,6 +71,8 @@
     "eyebrow": "Akses tertunda",
     "title": "Menunggu persetujuan.",
     "intro": "Akun Anda telah dibuat, tetapi administrator belum memberikan akses ke dasbor kesehatan proyek. Setelah dilakukan, halaman ini akan dialihkan secara otomatis — silakan biarkan terbuka.",
+    "crossAppNote": "Jika Anda sudah menggunakan aplikasi Shema lain, kami mengenali akun Anda dan mengirim permintaan akses atas nama Anda.",
+    "autoCheckCaption": "Memeriksa lagi setiap 5 detik…",
     "signOut": "Keluar",
     "checkAgain": "Periksa lagi"
   },

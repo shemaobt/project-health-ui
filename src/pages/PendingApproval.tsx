@@ -8,6 +8,8 @@ import {
 } from '../components/primitives';
 import { PageHeader } from '../components/composites';
 
+const POLL_INTERVAL_MS = 5000;
+
 export default function PendingApproval() {
   const { t } = useT();
   const [, setLocation] = useLocation();
@@ -18,6 +20,13 @@ export default function PendingApproval() {
       setLocation('/admin');
     }
   }, [appRoles, setLocation]);
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      void refreshMyRoles();
+    }, POLL_INTERVAL_MS);
+    return () => window.clearInterval(id);
+  }, [refreshMyRoles]);
 
   return (
     <div className="min-h-screen flex flex-col screen-enter">
@@ -36,10 +45,14 @@ export default function PendingApproval() {
 
           <Card className="mt-8 p-6 sm:p-8 text-left">
             <p className="text-earth-600">{t('pendingApproval.intro')}</p>
+            <p className="mt-4 text-sm text-earth-500">{t('pendingApproval.crossAppNote')}</p>
             <div className="mt-6">
               <PrimaryButton onClick={() => void refreshMyRoles()} className="w-full">
                 {t('pendingApproval.checkAgain')}
               </PrimaryButton>
+              <p className="mt-3 text-xs text-earth-400 text-center">
+                {t('pendingApproval.autoCheckCaption')}
+              </p>
             </div>
           </Card>
         </div>

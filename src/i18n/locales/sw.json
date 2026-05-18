@@ -71,6 +71,8 @@
     "eyebrow": "Ufikiaji unasubiri",
     "title": "Inasubiri idhini.",
     "intro": "Akaunti yako imeundwa, lakini msimamizi bado hajatoa ufikiaji wa dashibodi ya afya ya mradi. Atakapofanya hivyo, ukurasa huu utaelekezwa upya kiotomatiki — unaweza kuuacha wazi.",
+    "crossAppNote": "Iwapo tayari unatumia programu nyingine ya Shema, tumetambua akaunti yako na tukaomba ufikiaji kwa niaba yako.",
+    "autoCheckCaption": "Inaangalia tena kila sekunde 5…",
     "signOut": "Toka",
     "checkAgain": "Angalia tena"
   },
