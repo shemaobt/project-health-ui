@@ -1,12 +1,40 @@
+# Build stage
 FROM node:20-alpine AS builder
+
 WORKDIR /app
-COPY package.json package-lock.json ./
+
+COPY package.json package-lock.json* ./
 RUN npm ci
+
 COPY . .
+
+ENV NODE_ENV=production
+
 RUN npm run build
 
-FROM nginx:alpine
+# Runtime stage
+FROM nginx:stable-alpine AS runtime
+
+# Copy nginx configuration template (envsubst'd at container start)
+COPY nginx.conf /etc/nginx/nginx.conf.template
+
+# Copy built static assets from the Vite build
 COPY --from=builder /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
+
+# Entrypoint substitutes $BACKEND_URL into the nginx template, then execs nginx
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
+# Permissions required for the non-root `nginx` user
+RUN mkdir -p /var/cache/nginx /var/run /var/log/nginx && \
+  chown -R nginx:nginx /var/cache/nginx /var/run /var/log/nginx /usr/share/nginx/html && \
+  chmod -R 755 /var/cache/nginx /var/run /var/log/nginx && \
+  touch /var/run/nginx.pid && \
+  chown nginx:nginx /var/run/nginx.pid
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1
+
 EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+
+CMD ["/docker-entrypoint.sh"]
