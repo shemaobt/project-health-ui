@@ -16,6 +16,10 @@ export function configureApiAuth(opts: {
 }
 
 api.interceptors.request.use((config) => {
+  const existing = config.headers?.Authorization;
+  if (existing) {
+    return config;
+  }
   const token = getAccessToken();
   if (token) {
     config.headers = config.headers ?? {};
@@ -24,10 +28,17 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+const INTERVIEW_TOKEN_URL = /\/api\/project-health\/interviews\//;
+
+function isInterviewTokenRequest(error: AxiosError): boolean {
+  const url = error.config?.url ?? '';
+  return INTERVIEW_TOKEN_URL.test(url);
+}
+
 api.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === 401 && !isInterviewTokenRequest(error)) {
       onUnauthorized();
     }
     return Promise.reject(error);
