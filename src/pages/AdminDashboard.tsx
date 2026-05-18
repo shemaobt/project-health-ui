@@ -1,42 +1,74 @@
-import {
-  fetchDashboardStats, fetchInterviews, type DashboardStats, type InterviewSummary,
-} from '../lib/fixtures';
-import { useFetch } from '../lib/hooks';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'wouter';
+import { adminApi } from '../lib/api';
+import { interviewSummariesAndReports } from '../lib/adapters';
+import type { DashboardStats, InterviewSummary } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
+import { useAuthStore } from '../lib/stores/authStore';
 import {
-  Card, DottedEyebrow, Eyebrow, GhostButton, Icon, SecondaryButton,
+  Card, DottedEyebrow, Eyebrow, GhostButton, Icon, SecondaryButton, Spinner,
 } from '../components/primitives';
 import { InterviewRow, PageHeader, StatCard } from '../components/composites';
 
-interface AdminDashboardProps {
-  adminEmail: string;
-  onOpenReport: (id: string, view: 'admin' | 'team') => void;
-  onInviteAdmin: () => void;
-  onSignOut: () => void;
-}
-
 const EMPTY_STATS: DashboardStats = { total: 0, completed: 0, inProgress: 0 };
 
-export default function AdminDashboard({
-  adminEmail, onOpenReport, onInviteAdmin, onSignOut,
-}: AdminDashboardProps) {
+export default function AdminDashboard() {
   const { t } = useT();
-  const data = useFetch(
-    () => Promise.all([fetchInterviews(), fetchDashboardStats()])
-      .then(([list, stats]) => ({ list, stats })),
-    [],
-  );
-  const interviews: InterviewSummary[] = data?.list || [];
-  const stats: DashboardStats = data?.stats || EMPTY_STATS;
+  const [, setLocation] = useLocation();
+  const user = useAuthStore((s) => s.user);
+  const logout = useAuthStore((s) => s.logout);
+
+  const [interviews, setInterviews] = useState<InterviewSummary[]>([]);
+  const [reportByInterview, setReportByInterview] = useState<Map<string, string>>(new Map());
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const dash = await adminApi.getDashboard();
+        const { summaries, reportByInterview: map } = interviewSummariesAndReports(
+          dash.interviews,
+          dash.reports,
+        );
+        if (!cancelled) {
+          setInterviews(summaries);
+          setReportByInterview(map);
+        }
+      } catch (e) {
+        console.error('getDashboard failed', e);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  const stats: DashboardStats = {
+    total: interviews.length,
+    completed: interviews.filter((i) => i.status === 'completed').length,
+    inProgress: interviews.filter((i) => i.status === 'in_progress').length,
+  };
+  const safeStats = interviews.length === 0 ? EMPTY_STATS : stats;
+
+  const openReport = (interviewId: string) => {
+    const reportId = reportByInterview.get(interviewId);
+    if (reportId) setLocation(`/admin/reports/${reportId}`);
+  };
+
+  const onSignOut = async () => {
+    await logout();
+    setLocation('/login');
+  };
 
   return (
     <div className="min-h-screen screen-enter">
       <PageHeader bordered>
         <div className="text-right hidden sm:block">
           <Eyebrow size="tertiary" tone="earth400" className="block">{t('adminDashboard.signedInAs')}</Eyebrow>
-          <div className="text-sm text-earth-700">{adminEmail}</div>
+          <div className="text-sm text-earth-700">{user?.email}</div>
         </div>
-        <GhostButton onClick={onSignOut}>{t('common.signOut')}</GhostButton>
+        <GhostButton onClick={() => void onSignOut()}>{t('common.signOut')}</GhostButton>
       </PageHeader>
 
       <main className="max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
@@ -51,7 +83,7 @@ export default function AdminDashboard({
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <SecondaryButton onClick={onInviteAdmin}>
+            <SecondaryButton onClick={() => setLocation('/admin/invite')}>
               <Icon name="plus" />
               {t('adminDashboard.invite')}
             </SecondaryButton>
@@ -59,23 +91,28 @@ export default function AdminDashboard({
         </div>
 
         <div className="grid sm:grid-cols-3 gap-4 mb-8 sm:mb-10 animate-fade-up" style={{ animationDelay: '80ms' }}>
-          <StatCard label={t('adminDashboard.statTotalLabel')}      value={stats.total}      hint={t('adminDashboard.statTotalHint')} />
-          <StatCard label={t('adminDashboard.statCompletedLabel')}  value={stats.completed}  hint={t('adminDashboard.statCompletedHint')}  tone="sage" />
-          <StatCard label={t('adminDashboard.statInProgressLabel')} value={stats.inProgress} hint={t('adminDashboard.statInProgressHint')} tone="clay" />
+          <StatCard label={t('adminDashboard.statTotalLabel')}      value={safeStats.total}      hint={t('adminDashboard.statTotalHint')} />
+          <StatCard label={t('adminDashboard.statCompletedLabel')}  value={safeStats.completed}  hint={t('adminDashboard.statCompletedHint')}  tone="sage" />
+          <StatCard label={t('adminDashboard.statInProgressLabel')} value={safeStats.inProgress} hint={t('adminDashboard.statInProgressHint')} tone="clay" />
         </div>
 
         <Card className="p-1.5 animate-fade-up" style={{ animationDelay: '140ms' }}>
           <div className="px-5 py-4 flex items-center justify-between">
             <h2 className="font-serif text-xl text-earth-800">{t('adminDashboard.listTitle')}</h2>
-            <div className="text-xs text-earth-400">{t('adminDashboard.listTotal', { count: stats.total })}</div>
+            <div className="text-xs text-earth-400">{t('adminDashboard.listTotal', { count: safeStats.total })}</div>
           </div>
           <div className="border-t border-earth-700/8">
-            {interviews.map((iv) => (
+            {loading && (
+              <div className="px-5 py-6 flex items-center gap-2 text-earth-500 text-sm">
+                <Spinner /> {t('common.loading')}
+              </div>
+            )}
+            {!loading && interviews.map((iv) => (
               <InterviewRow
                 key={iv.id}
                 iv={iv}
-                onOpen={() => onOpenReport(iv.id, 'admin')}
-                onOpenTeam={() => onOpenReport(iv.id, 'team')}
+                onOpen={() => openReport(iv.id)}
+                onOpenTeam={() => openReport(iv.id)}
               />
             ))}
           </div>

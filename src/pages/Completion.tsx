@@ -1,22 +1,73 @@
 import { useEffect, useState } from 'react';
-import { StatusOrb } from '../components/primitives';
+import { useLocation } from 'wouter';
+import { StatusOrb, PrimaryButton, Alert } from '../components/primitives';
 import { useT } from '../lib/i18n';
+import { useInterviewStore } from '../lib/stores/interviewStore';
 
-export default function Completion({ onReady }: { onReady: () => void }) {
+type Stage = 'pending' | 'done' | 'blocked' | 'error';
+
+export default function Completion() {
   const { t } = useT();
-  const [stage, setStage] = useState(0);
+  const [, setLocation] = useLocation();
+  const interviewId = useInterviewStore((s) => s.interviewId);
+  const complete = useInterviewStore((s) => s.complete);
+
+  const [stage, setStage] = useState<Stage>('pending');
+  const [blockedMessage, setBlockedMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setStage(1), 2400);
-    const t2 = setTimeout(() => onReady(), 4400);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
-  }, [onReady]);
+    if (!interviewId) {
+      setLocation('/');
+      return;
+    }
+    void (async () => {
+      try {
+        const result = await complete();
+        if (result.ok) {
+          setStage('done');
+          setTimeout(() => setLocation(`/team-report/${result.reportId}`), 1500);
+        } else {
+          setBlockedMessage(result.blockedMessage);
+          setStage('blocked');
+        }
+      } catch (err) {
+        console.error('completeInterview failed', err);
+        setStage('error');
+      }
+    })();
+  }, [interviewId, complete, setLocation]);
 
-  const done = stage === 1;
+  if (stage === 'blocked') {
+    return (
+      <div className="min-h-screen flex items-center justify-center screen-enter">
+        <div className="text-center max-w-md px-5 sm:px-8 animate-fade-up">
+          <Alert tone="info">{blockedMessage ?? t('completion.inProgressDetail')}</Alert>
+          <div className="mt-6">
+            <PrimaryButton onClick={() => interviewId && setLocation(`/interview/${interviewId}`)}>
+              {t('common.back')}
+            </PrimaryButton>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
+  if (stage === 'error') {
+    return (
+      <div className="min-h-screen flex items-center justify-center screen-enter">
+        <div className="text-center max-w-md px-5 sm:px-8 animate-fade-up">
+          <Alert tone="error">{t('common.error')}</Alert>
+          <div className="mt-6">
+            <PrimaryButton onClick={() => interviewId && setLocation(`/interview/${interviewId}`)}>
+              {t('common.back')}
+            </PrimaryButton>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const done = stage === 'done';
   return (
     <div className="min-h-screen flex items-center justify-center screen-enter">
       <div className="text-center max-w-md px-5 sm:px-8 animate-fade-up">

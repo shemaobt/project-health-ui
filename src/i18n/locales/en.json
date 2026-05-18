@@ -4,7 +4,80 @@
     "returnHome": "Return home",
     "signOut": "Sign out",
     "backToDashboard": "← Back to dashboard",
-    "backToHome": "← Back to home"
+    "backToHome": "← Back to home",
+    "loading": "Loading…",
+    "error": "Something went wrong. Please try again.",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "login": {
+    "eyebrow": "Supervisor sign-in",
+    "title": "Welcome back.",
+    "intro": "Sign in with your email and password to review project health reports.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@organization.org",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Your password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "noAccount": "Don't have an account?",
+    "signup": "Create one",
+    "forgot": "Forgot your password?",
+    "errorInvalid": "Email or password was not recognized.",
+    "errorGeneric": "Sign-in failed. Please try again."
+  },
+  "signup": {
+    "eyebrow": "Create a supervisor account",
+    "title": "Set up your account.",
+    "intro": "Create your account, then an administrator will grant you access to the project-health dashboard.",
+    "displayNameLabel": "Display name",
+    "displayNamePlaceholder": "How should we address you?",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@organization.org",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "At least 8 characters",
+    "submit": "Create account",
+    "submitting": "Creating account…",
+    "haveAccount": "Already have an account?",
+    "signin": "Sign in",
+    "errorGeneric": "Sign-up failed. Please try again."
+  },
+  "forgotPassword": {
+    "eyebrow": "Password help",
+    "title": "Reset your password.",
+    "intro": "Enter your email and we'll send you a reset link.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@organization.org",
+    "submit": "Send reset link",
+    "submitting": "Sending…",
+    "sentTitle": "Check your email.",
+    "sentDetail": "If an account exists for that email, a reset link is on its way.",
+    "backToLogin": "Back to sign-in"
+  },
+  "resetPassword": {
+    "eyebrow": "Reset password",
+    "title": "Choose a new password.",
+    "intro": "Set a new password to finish resetting.",
+    "passwordLabel": "New password",
+    "passwordPlaceholder": "At least 8 characters",
+    "submit": "Reset password",
+    "submitting": "Resetting…",
+    "doneTitle": "Password updated.",
+    "doneDetail": "You can sign in with your new password now.",
+    "errorInvalidToken": "This reset link is invalid or has expired. Please request a new one.",
+    "errorGeneric": "We couldn't reset your password. Please try again."
+  },
+  "pendingApproval": {
+    "eyebrow": "Access pending",
+    "title": "Waiting for approval.",
+    "intro": "Your account is created but an administrator hasn't granted you access to the project-health dashboard yet. Once they do, this page will redirect automatically — feel free to leave it open.",
+    "signOut": "Sign out",
+    "checkAgain": "Check again"
+  },
+  "notFound": {
+    "title": "We couldn't find that page.",
+    "intro": "The link may have been moved or removed.",
+    "home": "Back to the start"
   },
   "brand": {
     "name": "OBT Project Health",

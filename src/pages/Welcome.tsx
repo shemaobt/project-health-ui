@@ -1,28 +1,53 @@
 import { useState } from 'react';
-import { LANGUAGES, type InterviewSession, type LanguageCode } from '../lib/fixtures';
+import { useLocation } from 'wouter';
+import { LANGUAGES, type LanguageCode } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
+import { useInterviewStore } from '../lib/stores/interviewStore';
+import type { SupportedLanguage } from '../lib/api/types';
 import {
-  Card, DottedEyebrow, Eyebrow, Field, GhostButton, Icon, PrimaryButton,
+  Alert, Card, DottedEyebrow, Eyebrow, Field, GhostButton, Icon, PrimaryButton, Spinner,
 } from '../components/primitives';
 import { PageHeader, ReassuranceLine } from '../components/composites';
 
-interface WelcomeProps {
-  onBegin: (s: { lang: LanguageCode; project: string; team: string }) => void;
-  onAdminSignIn: () => void;
-}
-
-export default function Welcome({ onBegin, onAdminSignIn }: WelcomeProps) {
+export default function Welcome() {
   const { t } = useT();
+  const [, setLocation] = useLocation();
+  const start = useInterviewStore((s) => s.start);
+  const reset = useInterviewStore((s) => s.reset);
+
   const [lang, setLang] = useState<LanguageCode>('en');
   const [project, setProject] = useState('');
   const [team, setTeam] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const canBegin = project.trim().length > 0 && team.trim().length > 0;
+  const canBegin = project.trim().length > 0 && team.trim().length > 0 && !submitting;
+
+  const begin = async () => {
+    if (!canBegin) return;
+    setError(null);
+    setSubmitting(true);
+    try {
+      reset();
+      const id = await start({
+        project_name: project.trim(),
+        team_name: team.trim(),
+        language: lang as SupportedLanguage,
+      });
+      setLocation(`/interview/${id}`);
+    } catch (e) {
+      console.error('createInterview failed', e);
+      setError(t('common.error'));
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen w-full screen-enter">
       <PageHeader topOnly>
-        <GhostButton onClick={onAdminSignIn}>{t('welcome.supervisorLink')}</GhostButton>
+        <GhostButton onClick={() => setLocation('/login')}>
+          {t('welcome.supervisorLink')}
+        </GhostButton>
       </PageHeader>
 
       <main className="max-w-5xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16 pb-16 sm:pb-20 grid lg:grid-cols-[1.05fr,0.95fr] gap-y-10 sm:gap-y-12 lg:gap-x-16 items-start">
@@ -92,11 +117,18 @@ export default function Welcome({ onBegin, onAdminSignIn }: WelcomeProps) {
               <Field label={t('welcome.teamField')}    placeholder={t('welcome.teamPlaceholder')}    value={team}    onChange={setTeam} />
             </div>
 
+            {error && (
+              <div className="mt-4">
+                <Alert tone="error">{error}</Alert>
+              </div>
+            )}
+
             <div className="mt-9 flex items-center justify-between gap-4">
               <p className="text-xs text-earth-400">{t('welcome.pauseNote')}</p>
-              <PrimaryButton disabled={!canBegin} onClick={() => onBegin({ lang, project, team })}>
-                {t('welcome.begin')}
-                <Icon name="arrow-right" />
+              <PrimaryButton disabled={!canBegin} onClick={() => void begin()}>
+                {submitting
+                  ? <><Spinner /> {t('login.submitting')}</>
+                  : <>{t('welcome.begin')}<Icon name="arrow-right" /></>}
               </PrimaryButton>
             </div>
           </Card>
@@ -125,5 +157,3 @@ function ReassuranceList({ className = '' }: { className?: string }) {
     </div>
   );
 }
-
-export type { InterviewSession };

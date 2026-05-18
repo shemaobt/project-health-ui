@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'wouter';
 import type { Interview } from '../lib/fixtures';
+import { interviewFromAdminReport } from '../lib/adapters';
+import { reportsApi } from '../lib/api';
 import { useT } from '../lib/i18n';
 import {
-  Card, DottedEyebrow, Eyebrow, formatDate,
+  Card, DottedEyebrow, Eyebrow, formatDate, Spinner,
 } from '../components/primitives';
 import {
   BadgeItem, BreadcrumbHeader, ContextField, DomainCard, OverallIndex, QualityRow, ToneCardHeader,
@@ -12,18 +15,46 @@ import { Icon } from '../components/primitives';
 import TeamReport from './TeamReport';
 
 interface AdminReportProps {
-  interview: Interview;
-  initialView?: 'admin' | 'team';
-  onBack: () => void;
+  reportId: string;
 }
 
-export default function AdminReport({ interview, initialView = 'admin', onBack }: AdminReportProps) {
+export default function AdminReport({ reportId }: AdminReportProps) {
   const { t } = useT();
+  const [, setLocation] = useLocation();
   const filenameFor = usePdfFilename();
-  const I = interview;
-  const [view, setView] = useState<'admin' | 'team'>(initialView);
+  const [interview, setInterview] = useState<Interview | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [view, setView] = useState<'admin' | 'team'>('admin');
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      try {
+        const report = await reportsApi.getAdminReport(reportId);
+        const summaryDto = {
+          id: report.interview_id,
+          project_name: '',
+          team_name: '',
+          language: report.language,
+          status: 'completed' as const,
+          created_at: report.created_at,
+          completed_at: report.created_at,
+        };
+        const adapted = interviewFromAdminReport(summaryDto, report);
+        if (!cancelled) setInterview(adapted);
+      } catch (e) {
+        console.error('getAdminReport failed', e);
+        if (!cancelled) setError(t('common.error'));
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [reportId, t]);
 
   const exportFor = async (target: 'team' | 'admin') => {
+    if (!interview) return;
     const previous = view;
     const switched = previous !== target;
     if (switched) {
@@ -31,17 +62,36 @@ export default function AdminReport({ interview, initialView = 'admin', onBack }
       await new Promise<void>((r) => requestAnimationFrame(() => setTimeout(r, 80)));
     }
     const elementId = target === 'team' ? 'team-report-document' : 'admin-report-document';
-    printReport({ elementId, filename: filenameFor(I, target) });
+    printReport({ elementId, filename: filenameFor(interview, target) });
     if (switched) setView(previous);
   };
+
+  const goBack = () => setLocation('/admin');
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Spinner /> <span className="ml-2 text-earth-500 text-sm">{t('common.loading')}</span>
+      </div>
+    );
+  }
+  if (error || !interview) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-earth-500 text-sm">
+        {error ?? t('common.error')}
+      </div>
+    );
+  }
+
+  const I = interview;
 
   return (
     <div className="min-h-screen screen-enter">
       <BreadcrumbHeader
-        onBack={onBack}
+        onBack={goBack}
         backLabel={t('ariaLabel.backToDashboard')}
         eyebrow={<Eyebrow size="breadcrumb" tone="earth400">{t('adminReport.interviewEyebrow', { date: formatDate(I.date) })}</Eyebrow>}
-        title={<>{I.project} <span aria-hidden="true" className="text-earth-400">·</span> {I.team}</>}
+        title={<>{I.project || '—'} <span aria-hidden="true" className="text-earth-400">·</span> {I.team || '—'}</>}
       >
         <ViewToggle view={view} setView={setView} />
         <div className="flex items-center gap-2">
@@ -51,7 +101,7 @@ export default function AdminReport({ interview, initialView = 'admin', onBack }
       </BreadcrumbHeader>
 
       {view === 'team'
-        ? <TeamReport interview={I} onHome={onBack} onBack={onBack} showBackToAdmin showPdfButton={false} />
+        ? <TeamReport reportId={reportId} embedded embeddedInterview={I} onBackToAdmin={goBack} />
         : <AdminReportBody I={I} />}
     </div>
   );
@@ -96,12 +146,12 @@ function AdminReportBody({ I }: { I: Interview }) {
       <Card className="p-5 sm:p-6 mt-8 sm:mt-10 animate-fade-up" style={{ animationDelay: '120ms' }}>
         <Eyebrow size="secondary" tone="earth400" className="block mb-4">{t('adminReport.contextHeading')}</Eyebrow>
         <dl className="grid sm:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-4 text-sm">
-          <ContextField compact label={t('adminReport.contextRespondent')}   value={C.respondent} />
+          <ContextField compact label={t('adminReport.contextRespondent')}   value={C.respondent || '—'} />
           <ContextField compact label={t('adminReport.contextParticipants')} value={t('adminReport.participantCount', { count: C.participants.length })} />
-          <ContextField compact label={t('adminReport.contextLanguage')}     value={C.languageNote} />
-          <ContextField compact label={t('adminReport.contextTeamSize')}     value={C.teamSize} />
-          <ContextField compact label={t('adminReport.contextProject')}      value={I.project} />
-          <ContextField compact label={t('adminReport.contextTeam')}         value={I.team} />
+          <ContextField compact label={t('adminReport.contextLanguage')}     value={C.languageNote || '—'} />
+          <ContextField compact label={t('adminReport.contextTeamSize')}     value={String(C.teamSize || '—')} />
+          <ContextField compact label={t('adminReport.contextProject')}      value={I.project || '—'} />
+          <ContextField compact label={t('adminReport.contextTeam')}         value={I.team || '—'} />
         </dl>
       </Card>
 
