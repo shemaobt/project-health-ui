@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { Link } from 'wouter';
 import { useT } from '../lib/i18n';
 import { useAuthStore } from '../lib/stores/authStore';
@@ -14,7 +14,8 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [stage, setStage] = useState<'idle' | 'sending' | 'sent'>('idle');
 
-  const submit = async () => {
+  const submit = async (event?: FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
     if (!email.trim() || stage === 'sending') return;
     setStage('sending');
     try {
@@ -44,18 +45,20 @@ export default function ForgotPassword() {
 
           <Card className="p-6 sm:p-7">
             {stage !== 'sent' ? (
-              <>
+              <form onSubmit={submit} noValidate>
                 <Field
                   type="email"
+                  name="email"
+                  autoComplete="email"
+                  required
                   label={t('forgotPassword.emailLabel')}
                   placeholder={t('forgotPassword.emailPlaceholder')}
                   value={email}
                   onChange={setEmail}
-                  onKeyDown={(e) => e.key === 'Enter' && submit()}
                 />
                 <div className="mt-6">
                   <PrimaryButton
-                    onClick={submit}
+                    type="submit"
                     disabled={!email.trim() || stage === 'sending'}
                     className="w-full"
                   >
@@ -64,7 +67,7 @@ export default function ForgotPassword() {
                       : t('forgotPassword.submit')}
                   </PrimaryButton>
                 </div>
-              </>
+              </form>
             ) : (
               <div className="text-center py-4 animate-fade-up">
                 <div className="mb-4">

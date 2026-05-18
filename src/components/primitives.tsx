@@ -274,8 +274,14 @@ interface FieldProps {
   onChange: (value: string) => void;
   type?: string;
   onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  name?: string;
+  autoComplete?: string;
+  required?: boolean;
 }
-export function Field({ label, placeholder, value, onChange, type = 'text', onKeyDown }: FieldProps) {
+export function Field({
+  label, placeholder, value, onChange, type = 'text', onKeyDown,
+  name, autoComplete, required,
+}: FieldProps) {
   return (
     <label className="block">
       <span className="block text-xs uppercase tracking-[0.14em] text-earth-500 font-medium mb-2">
@@ -287,6 +293,9 @@ export function Field({ label, placeholder, value, onChange, type = 'text', onKe
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
+        name={name}
+        autoComplete={autoComplete}
+        required={required}
         className="focus-warm w-full bg-cream-100 border border-transparent rounded-xl px-4 py-3 text-[15px] text-earth-800 placeholder:text-earth-400/70 transition-all duration-200"
       />
     </label>

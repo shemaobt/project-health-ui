@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type FormEvent } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useT } from '../lib/i18n';
 import { useAuthStore } from '../lib/stores/authStore';
@@ -21,7 +21,8 @@ export default function ResetPassword() {
   const [stage, setStage] = useState<'idle' | 'submitting' | 'done'>('idle');
   const [error, setError] = useState<string | null>(null);
 
-  const submit = async () => {
+  const submit = async (event?: FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
     if (!password || !token || stage === 'submitting') return;
     setError(null);
     setStage('submitting');
@@ -55,14 +56,16 @@ export default function ResetPassword() {
 
           <Card className="p-6 sm:p-7">
             {stage !== 'done' ? (
-              <>
+              <form onSubmit={submit} noValidate>
                 <Field
                   type="password"
+                  name="new-password"
+                  autoComplete="new-password"
+                  required
                   label={t('resetPassword.passwordLabel')}
                   placeholder={t('resetPassword.passwordPlaceholder')}
                   value={password}
                   onChange={(v) => { setPassword(v); setError(null); }}
-                  onKeyDown={(e) => e.key === 'Enter' && submit()}
                 />
                 {error && (
                   <div className="mt-4">
@@ -71,7 +74,7 @@ export default function ResetPassword() {
                 )}
                 <div className="mt-6">
                   <PrimaryButton
-                    onClick={submit}
+                    type="submit"
                     disabled={!password || !token || stage === 'submitting'}
                     className="w-full"
                   >
@@ -80,7 +83,7 @@ export default function ResetPassword() {
                       : t('resetPassword.submit')}
                   </PrimaryButton>
                 </div>
-              </>
+              </form>
             ) : (
               <div className="text-center py-4 animate-fade-up">
                 <div className="mb-4">

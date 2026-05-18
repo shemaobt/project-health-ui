@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useLocation } from 'wouter';
 import axios from 'axios';
 import { adminApi } from '../lib/api';
@@ -17,7 +17,8 @@ export default function InviteAdmin() {
   const [stage, setStage] = useState<Stage>('idle');
   const [errorDetail, setErrorDetail] = useState<string | null>(null);
 
-  const send = async () => {
+  const send = async (event?: FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
     const trimmed = email.trim();
     if (!trimmed || stage === 'sending') return;
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
@@ -64,29 +65,33 @@ export default function InviteAdmin() {
         </div>
 
         <Card className="p-6 sm:p-7 animate-fade-up" style={{ animationDelay: '60ms' }}>
-          <div className="flex flex-col sm:flex-row gap-3 sm:items-end">
-            <div className="flex-1">
-              <Field
-                type="email"
-                label={t('inviteAdmin.emailLabel')}
-                placeholder={t('inviteAdmin.emailPlaceholder')}
-                value={email}
-                onChange={(v) => { setEmail(v); setStage('idle'); }}
-                onKeyDown={(e) => e.key === 'Enter' && send()}
-              />
+          <form onSubmit={send} noValidate>
+            <div className="flex flex-col sm:flex-row gap-3 sm:items-end">
+              <div className="flex-1">
+                <Field
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  required
+                  label={t('inviteAdmin.emailLabel')}
+                  placeholder={t('inviteAdmin.emailPlaceholder')}
+                  value={email}
+                  onChange={(v) => { setEmail(v); setStage('idle'); }}
+                />
+              </div>
+              <PrimaryButton
+                type="submit"
+                disabled={!email.trim() || stage === 'sending'}
+                className="sm:w-auto">
+                {stage === 'sending' ? t('inviteAdmin.sending') : t('inviteAdmin.send')}
+              </PrimaryButton>
             </div>
-            <PrimaryButton
-              onClick={() => void send()}
-              disabled={!email.trim() || stage === 'sending'}
-              className="sm:w-auto">
-              {stage === 'sending' ? t('inviteAdmin.sending') : t('inviteAdmin.send')}
-            </PrimaryButton>
-          </div>
 
-          {stage === 'sent'     && <div className="mt-4"><Alert tone="success">{t('inviteAdmin.sent')}</Alert></div>}
-          {stage === 'notFound' && <div className="mt-4"><Alert tone="info">{errorDetail ?? t('common.error')}</Alert></div>}
-          {stage === 'invalid'  && <div className="mt-4"><Alert tone="error">{t('inviteAdmin.invalid')}</Alert></div>}
-          {stage === 'error'    && <div className="mt-4"><Alert tone="error">{t('common.error')}</Alert></div>}
+            {stage === 'sent'     && <div className="mt-4"><Alert tone="success">{t('inviteAdmin.sent')}</Alert></div>}
+            {stage === 'notFound' && <div className="mt-4"><Alert tone="info">{errorDetail ?? t('common.error')}</Alert></div>}
+            {stage === 'invalid'  && <div className="mt-4"><Alert tone="error">{t('inviteAdmin.invalid')}</Alert></div>}
+            {stage === 'error'    && <div className="mt-4"><Alert tone="error">{t('common.error')}</Alert></div>}
+          </form>
         </Card>
 
         <p className="mt-10 text-center text-xs text-earth-400 font-serif italic" style={{ textWrap: 'balance' as never }}>

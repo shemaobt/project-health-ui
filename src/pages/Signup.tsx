@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useT } from '../lib/i18n';
 import { useAuthStore } from '../lib/stores/authStore';
@@ -18,7 +18,8 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const submit = async () => {
+  const submit = async (event?: FormEvent<HTMLFormElement>) => {
+    event?.preventDefault();
     if (!email.trim() || !password || loading) return;
     setError(null);
     try {
@@ -53,49 +54,58 @@ export default function Signup() {
           </div>
 
           <Card className="p-6 sm:p-7">
-            <Field
-              label={t('signup.displayNameLabel')}
-              placeholder={t('signup.displayNamePlaceholder')}
-              value={displayName}
-              onChange={setDisplayName}
-            />
-            <div className="mt-5">
+            <form onSubmit={submit} noValidate>
               <Field
-                type="email"
-                label={t('signup.emailLabel')}
-                placeholder={t('signup.emailPlaceholder')}
-                value={email}
-                onChange={(v) => { setEmail(v); setError(null); }}
+                name="name"
+                autoComplete="name"
+                label={t('signup.displayNameLabel')}
+                placeholder={t('signup.displayNamePlaceholder')}
+                value={displayName}
+                onChange={setDisplayName}
               />
-            </div>
-            <div className="mt-5">
-              <Field
-                type="password"
-                label={t('signup.passwordLabel')}
-                placeholder={t('signup.passwordPlaceholder')}
-                value={password}
-                onChange={(v) => { setPassword(v); setError(null); }}
-                onKeyDown={(e) => e.key === 'Enter' && submit()}
-              />
-            </div>
-
-            {error && (
-              <div className="mt-4">
-                <Alert tone="error">{error}</Alert>
+              <div className="mt-5">
+                <Field
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  required
+                  label={t('signup.emailLabel')}
+                  placeholder={t('signup.emailPlaceholder')}
+                  value={email}
+                  onChange={(v) => { setEmail(v); setError(null); }}
+                />
               </div>
-            )}
+              <div className="mt-5">
+                <Field
+                  type="password"
+                  name="password"
+                  autoComplete="new-password"
+                  required
+                  label={t('signup.passwordLabel')}
+                  placeholder={t('signup.passwordPlaceholder')}
+                  value={password}
+                  onChange={(v) => { setPassword(v); setError(null); }}
+                />
+              </div>
 
-            <div className="mt-6">
-              <PrimaryButton
-                onClick={submit}
-                disabled={!email.trim() || !password || loading}
-                className="w-full"
-              >
-                {loading
-                  ? <><Spinner /> {t('signup.submitting')}</>
-                  : t('signup.submit')}
-              </PrimaryButton>
-            </div>
+              {error && (
+                <div className="mt-4">
+                  <Alert tone="error">{error}</Alert>
+                </div>
+              )}
+
+              <div className="mt-6">
+                <PrimaryButton
+                  type="submit"
+                  disabled={!email.trim() || !password || loading}
+                  className="w-full"
+                >
+                  {loading
+                    ? <><Spinner /> {t('signup.submitting')}</>
+                    : t('signup.submit')}
+                </PrimaryButton>
+              </div>
+            </form>
 
             <p className="mt-5 text-center text-xs text-earth-500">
               {t('signup.haveAccount')}{' '}
