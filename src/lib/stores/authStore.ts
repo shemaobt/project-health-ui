@@ -61,7 +61,7 @@ export const useAuthStore = create<AuthState>()(
           const res = await authApi.login(email, password);
           set({
             user: res.user,
-            tokens: { access: res.access_token, refresh: res.refresh_token },
+            tokens: { access: res.tokens.access_token, refresh: res.tokens.refresh_token },
             loaded: true,
             loading: false,
           });
@@ -93,7 +93,7 @@ export const useAuthStore = create<AuthState>()(
           const res = await authApi.signup(payload);
           set({
             user: res.user,
-            tokens: { access: res.access_token, refresh: res.refresh_token },
+            tokens: { access: res.tokens.access_token, refresh: res.tokens.refresh_token },
             loaded: true,
             loading: false,
           });
