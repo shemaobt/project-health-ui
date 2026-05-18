@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import {
   getInterviewCoverage, langLabel, sendInterviewMessage, simulateTranscription, startInterview,
   type InterviewSession, type Message as MessagePayload, type Pace,
-} from '../lib/api';
+} from '../lib/fixtures';
 import { useFetch } from '../lib/hooks';
 import { useT } from '../lib/i18n';
 import {

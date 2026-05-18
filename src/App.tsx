@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { fetchInterview, type Interview, type InterviewSession, type LanguageCode } from './lib/api';
+import { fetchInterview, type Interview, type InterviewSession, type LanguageCode } from './lib/fixtures';
 import { useFetch } from './lib/hooks';
 import { I18nProvider } from './lib/i18n';
 import AdminDashboard from './pages/AdminDashboard';

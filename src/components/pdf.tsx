@@ -4,7 +4,7 @@
 // print engine handles layout — no html2canvas, no rasterization, no clipping.
 import type { ReactNode } from 'react';
 import { Icon, Spinner } from './primitives';
-import type { Interview } from '../lib/api';
+import type { Interview } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
 
 export function pdfFilename(I: Interview, type: 'team' | 'admin', labels?: { team: string; admin: string }): string {

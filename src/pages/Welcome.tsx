@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LANGUAGES, type InterviewSession, type LanguageCode } from '../lib/api';
+import { LANGUAGES, type InterviewSession, type LanguageCode } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
 import {
   Card, DottedEyebrow, Eyebrow, Field, GhostButton, Icon, PrimaryButton,

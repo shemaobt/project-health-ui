@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { signIn } from '../lib/api';
+import { signIn } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
 import {
   Alert, Card, DottedEyebrow, Field, GhostButton, PrimaryButton, Spinner, StatusOrb,

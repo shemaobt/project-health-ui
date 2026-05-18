@@ -1,0 +1,198 @@
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import i18n, { LOCALE_STORAGE_KEY, isSupportedLocale } from '../../i18n';
+import { authApi, configureApiAuth, type CurrentUser } from '../api';
+import { PH_APP_KEY } from '../constants';
+
+function syncLocaleFromUser(user: CurrentUser | null): void {
+  const locale = user?.locale;
+  if (!locale || !isSupportedLocale(locale)) return;
+  if (i18n.language === locale) return;
+  void i18n.changeLanguage(locale);
+  try {
+    localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+  } catch {
+    void 0;
+  }
+}
+
+interface Tokens {
+  access: string;
+  refresh: string;
+}
+
+interface AuthState {
+  user: CurrentUser | null;
+  tokens: Tokens | null;
+  appRoles: string[];
+  loaded: boolean;
+  loading: boolean;
+  error: string | null;
+  login: (email: string, password: string) => Promise<void>;
+  signup: (payload: {
+    email: string;
+    password: string;
+    display_name?: string;
+  }) => Promise<{ accessRequested: boolean }>;
+  logout: () => Promise<void>;
+  refreshMe: () => Promise<void>;
+  refreshMyRoles: () => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
+  resetPassword: (token: string, password: string) => Promise<void>;
+  updateProfile: (payload: {
+    display_name?: string;
+    locale?: string | null;
+  }) => Promise<void>;
+}
+
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set, get) => ({
+      user: null,
+      tokens: null,
+      appRoles: [],
+      loaded: false,
+      loading: false,
+      error: null,
+
+      login: async (email, password) => {
+        set({ loading: true, error: null });
+        try {
+          const res = await authApi.login(email, password);
+          set({
+            user: res.user,
+            tokens: { access: res.access_token, refresh: res.refresh_token },
+            loaded: true,
+            loading: false,
+          });
+          syncLocaleFromUser(res.user);
+          await get().refreshMyRoles();
+
+          const state = get();
+          if (
+            state.user &&
+            !state.user.is_platform_admin &&
+            state.appRoles.length === 0
+          ) {
+            try {
+              await authApi.requestAccess(PH_APP_KEY);
+              await get().refreshMyRoles();
+            } catch (err) {
+              console.warn(`${PH_APP_KEY} access request auto-queue failed:`, err);
+            }
+          }
+        } catch (e) {
+          set({ loading: false, error: e instanceof Error ? e.message : 'Login failed' });
+          throw e;
+        }
+      },
+
+      signup: async (payload) => {
+        set({ loading: true, error: null });
+        try {
+          const res = await authApi.signup(payload);
+          set({
+            user: res.user,
+            tokens: { access: res.access_token, refresh: res.refresh_token },
+            loaded: true,
+            loading: false,
+          });
+          let accessRequested = true;
+          try {
+            await authApi.requestAccess(PH_APP_KEY);
+            await get().refreshMyRoles();
+          } catch (err) {
+            accessRequested = false;
+            console.warn(`${PH_APP_KEY} access request failed:`, err);
+          }
+          return { accessRequested };
+        } catch (e) {
+          set({ loading: false, error: e instanceof Error ? e.message : 'Signup failed' });
+          throw e;
+        }
+      },
+
+      logout: async () => {
+        const refresh = get().tokens?.refresh;
+        try {
+          if (refresh) await authApi.logout(refresh);
+        } catch {
+          void 0;
+        }
+        set({ user: null, tokens: null, appRoles: [], loaded: true, error: null });
+      },
+
+      refreshMe: async () => {
+        try {
+          const user = await authApi.me();
+          set({ user, loaded: true });
+          syncLocaleFromUser(user);
+        } catch {
+          set({ user: null, tokens: null, appRoles: [], loaded: true });
+        }
+      },
+
+      refreshMyRoles: async () => {
+        try {
+          const roles = await authApi.myRoles(PH_APP_KEY);
+          set({ appRoles: roles.map((r) => r.role_key) });
+        } catch {
+          set({ appRoles: [] });
+        }
+      },
+
+      forgotPassword: async (email) => {
+        await authApi.forgotPassword(email);
+      },
+
+      resetPassword: async (token, password) => {
+        await authApi.resetPassword(token, password);
+      },
+
+      updateProfile: async (payload) => {
+        const user = await authApi.updateProfile(payload);
+        set({ user });
+        syncLocaleFromUser(user);
+      },
+    }),
+    {
+      name: 'ph-auth',
+      partialize: (s) => ({ tokens: s.tokens, user: s.user, appRoles: s.appRoles }),
+    },
+  ),
+);
+
+configureApiAuth({
+  getAccessToken: () => useAuthStore.getState().tokens?.access ?? null,
+  onUnauthorized: () => {
+    useAuthStore.setState({ user: null, tokens: null, appRoles: [], loaded: true });
+  },
+});
+
+export async function bootstrapAuth(): Promise<void> {
+  const { tokens, refreshMe, refreshMyRoles } = useAuthStore.getState();
+  if (tokens?.access) {
+    await refreshMe();
+    if (useAuthStore.getState().user) {
+      await refreshMyRoles();
+    }
+  } else {
+    useAuthStore.setState({ loaded: true });
+  }
+
+  if (typeof window !== 'undefined' && !window.__phAuthFocusListenerInstalled) {
+    window.__phAuthFocusListenerInstalled = true;
+    window.addEventListener('focus', () => {
+      const state = useAuthStore.getState();
+      if (state.loaded && state.tokens?.access && state.user) {
+        void state.refreshMyRoles();
+      }
+    });
+  }
+}
+
+declare global {
+  interface Window {
+    __phAuthFocusListenerInstalled?: boolean;
+  }
+}

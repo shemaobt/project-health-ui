@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from 'react';
-import { LANGUAGES, type LanguageCode } from '../lib/api';
+import { LANGUAGES, type LanguageCode } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
 
 type EyebrowSize = 'primary' | 'secondary' | 'tertiary' | 'breadcrumb' | 'micro';

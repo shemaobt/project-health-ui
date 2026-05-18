@@ -1,4 +1,4 @@
-import type { LanguageCode } from '../api';
+import type { LanguageCode } from '../fixtures';
 import { en, type Dictionary } from './en';
 import { es } from './es';
 import { fr } from './fr';

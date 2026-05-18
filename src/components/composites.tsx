@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react';
-import { langLabel, type Domain, type InterviewSummary, type Quality } from '../lib/api';
+import { langLabel, type Domain, type InterviewSummary, type Quality } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
 import {
   BrandMark, ConfidenceGlyph, Eyebrow, FacilitatorAvatar, formatDate, HRule, Icon, IconButton,
   LanguageDot, LanguageMenu, PlayButton, ReassuranceIcon, type ReassuranceIconName, ScoreMeter, scoreTone,
   StatusPill, TeamAvatar,
 } from './primitives';
-import type { Message as MessagePayload } from '../lib/api';
+import type { Message as MessagePayload } from '../lib/fixtures';
 
 export function PageHeader({
   children, bordered = false, maxWidth = 'max-w-6xl', topOnly = false, hideLanguageMenu = false,

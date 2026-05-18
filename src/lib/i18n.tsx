@@ -6,7 +6,7 @@ import i18n, {
   type SupportedLocale,
   isSupportedLocale,
 } from '../i18n';
-import type { LanguageCode } from './api';
+import type { LanguageCode } from './fixtures';
 
 type Vars = Record<string, string | number>;
 

@@ -1,6 +1,6 @@
 import {
   fetchDashboardStats, fetchInterviews, type DashboardStats, type InterviewSummary,
-} from '../lib/api';
+} from '../lib/fixtures';
 import { useFetch } from '../lib/hooks';
 import { useT } from '../lib/i18n';
 import {

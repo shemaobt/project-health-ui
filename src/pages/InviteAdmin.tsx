@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchAdmins, inviteAdmin, type Admin } from '../lib/api';
+import { fetchAdmins, inviteAdmin, type Admin } from '../lib/fixtures';
 import { useFetch } from '../lib/hooks';
 import { useT } from '../lib/i18n';
 import {

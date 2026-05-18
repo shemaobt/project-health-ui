@@ -1,4 +1,4 @@
-import type { Interview } from '../lib/api';
+import type { Interview } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
 import {
   BrandMark, Card, DottedEyebrow, Eyebrow, formatDate, PrimaryButton, SecondaryButton, SingleDotEyebrow,
