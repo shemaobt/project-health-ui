@@ -13,11 +13,15 @@ export interface CurrentUser {
   updated_at: string;
 }
 
-export interface LoginResponse {
+export interface AuthTokens {
   access_token: string;
   refresh_token: string;
   token_type: string;
+}
+
+export interface LoginResponse {
   user: CurrentUser;
+  tokens: AuthTokens;
 }
 
 export interface SignupPayload {
