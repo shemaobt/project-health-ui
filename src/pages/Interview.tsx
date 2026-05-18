@@ -3,8 +3,8 @@ import { useLocation } from 'wouter';
 import { langLabel, type Message as MessagePayload } from '../lib/fixtures';
 import { useT } from '../lib/i18n';
 import { useInterviewStore } from '../lib/stores/interviewStore';
-import { useVoiceInput, LANGUAGE_SPEECH_CODES } from '../lib/hooks/useVoiceInput';
-import { useTextToSpeech, LANGUAGE_TTS_CODES } from '../lib/hooks/useTextToSpeech';
+import { useVoiceInput } from '../lib/hooks/useVoiceInput';
+import { useTextToSpeech } from '../lib/hooks/useTextToSpeech';
 import { InterviewTokenExpiredError } from '../lib/api/interviews';
 import {
   Alert, DottedEyebrow, DividerEyebrow, Eyebrow, FacilitatorAvatar, Icon, MicButton, PrimaryButton, TypingIndicator,
@@ -23,6 +23,7 @@ export default function Interview({ interviewId }: InterviewProps) {
   const projectName = useInterviewStore((s) => s.projectName);
   const teamName = useInterviewStore((s) => s.teamName);
   const storeId = useInterviewStore((s) => s.interviewId);
+  const interviewToken = useInterviewStore((s) => s.interviewToken);
   const messages = useInterviewStore((s) => s.messages);
   const coverage = useInterviewStore((s) => s.coverage);
   const sendMessage = useInterviewStore((s) => s.sendMessage);
@@ -44,13 +45,13 @@ export default function Interview({ interviewId }: InterviewProps) {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
   }, [messages, typing]);
 
-  const speechLang = language ? LANGUAGE_SPEECH_CODES[language] ?? 'en-US' : 'en-US';
-  const ttsLang = language ? LANGUAGE_TTS_CODES[language] ?? 'en-US' : 'en-US';
   const voice = useVoiceInput({
-    languageCode: speechLang,
+    language,
+    interviewId,
+    interviewToken,
     onResult: (text) => setDraft((prev) => prev ? `${prev} ${text}`.trim() : text),
   });
-  const tts = useTextToSpeech({ languageCode: ttsLang });
+  const tts = useTextToSpeech({ language, interviewId, interviewToken });
 
   const handleSend = async () => {
     const text = draft.trim();

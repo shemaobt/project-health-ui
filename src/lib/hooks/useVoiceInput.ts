@@ -1,152 +1,80 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import type { SupportedLanguage } from '../api/types';
+import { transcribeAudio } from '../api/voice';
+import { useVoiceRecorder } from './useVoiceRecorder';
 
 interface UseVoiceInputOptions {
-  languageCode: string;
+  language: SupportedLanguage | null;
+  interviewId: string | null;
+  interviewToken: string | null;
   onResult: (transcript: string) => void;
 }
 
-interface SpeechRecognitionAny {
-  abort: () => void;
-  stop: () => void;
-  start: () => void;
-  lang: string;
-  continuous: boolean;
-  interimResults: boolean;
-  maxAlternatives: number;
-  onstart: (() => void) | null;
-  onresult: ((event: SpeechRecognitionEventAny) => void) | null;
-  onerror: ((event: SpeechRecognitionErrorAny) => void) | null;
-  onend: (() => void) | null;
-}
-
-interface SpeechRecognitionEventAny {
-  resultIndex: number;
-  results: ArrayLike<{
-    isFinal: boolean;
-    0: { transcript: string };
-  }>;
-}
-
-interface SpeechRecognitionErrorAny {
-  error: string;
-}
-
-type Ctor = new () => SpeechRecognitionAny;
-
-function getSpeechRecognitionCtor(): Ctor | null {
-  if (typeof window === 'undefined') return null;
-  const w = window as unknown as {
-    SpeechRecognition?: Ctor;
-    webkitSpeechRecognition?: Ctor;
-  };
-  return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
-}
-
-export function useVoiceInput({ languageCode, onResult }: UseVoiceInputOptions) {
-  const [isListening, setIsListening] = useState(false);
-  const [isSupported] = useState(() => !!getSpeechRecognitionCtor());
-  const [error, setError] = useState('');
-  const recognitionRef = useRef<SpeechRecognitionAny | null>(null);
-
+export function useVoiceInput({ language, interviewId, interviewToken, onResult }: UseVoiceInputOptions) {
+  const recorder = useVoiceRecorder({ maxDurationMs: 5 * 60 * 1000 });
+  const [transcribeError, setTranscribeError] = useState<string>('');
+  const [transcribing, setTranscribing] = useState(false);
+  const onResultRef = useRef(onResult);
   useEffect(() => {
-    return () => {
-      recognitionRef.current?.abort?.();
-    };
-  }, []);
+    onResultRef.current = onResult;
+  }, [onResult]);
+
+  const isSupported = typeof navigator !== 'undefined'
+    && !!navigator.mediaDevices?.getUserMedia
+    && typeof window !== 'undefined'
+    && typeof window.MediaRecorder !== 'undefined';
+
+  const error = transcribeError || recorder.error || '';
+
+  const finishWithBlob = useCallback(
+    async (blob: Blob | null) => {
+      if (!blob || !interviewId || !interviewToken) return;
+      setTranscribing(true);
+      try {
+        const res = await transcribeAudio(interviewId, blob, interviewToken, language ?? undefined);
+        const text = res.transcript.trim();
+        if (text) onResultRef.current(text);
+        else setTranscribeError('We did not catch any speech. Please try again.');
+      } catch (err) {
+        if (axios.isAxiosError(err) && (err.response?.status === 401 || err.response?.status === 403)) {
+          setTranscribeError('Your session has expired. Please refresh and try again.');
+        } else {
+          setTranscribeError('Voice transcription failed. Please try again in a moment.');
+        }
+      } finally {
+        setTranscribing(false);
+      }
+    },
+    [interviewId, interviewToken, language],
+  );
 
   const startListening = useCallback(async () => {
-    const SpeechRecognition = getSpeechRecognitionCtor();
-    if (!SpeechRecognition) {
-      setError('Voice input is not supported in this browser.');
+    if (!isSupported) {
+      setTranscribeError('Voice input is not supported in this browser.');
       return;
     }
-    setError('');
+    setTranscribeError('');
+    await recorder.start();
+  }, [isSupported, recorder]);
 
-    if (navigator.mediaDevices?.getUserMedia) {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        stream.getTracks().forEach((track) => track.stop());
-      } catch {
-        setError('Microphone access is blocked. Please allow microphone use and try again.');
-        setIsListening(false);
-        return;
-      }
-    }
+  const stopListening = useCallback(async () => {
+    const blob = await recorder.stop();
+    await finishWithBlob(blob);
+  }, [recorder, finishWithBlob]);
 
-    recognitionRef.current?.abort?.();
-
-    const recognition = new SpeechRecognition();
-    let finalTranscript = '';
-    let latestTranscript = '';
-    let heardSpeech = false;
-    let delivered = false;
-    let hadRecognitionError = false;
-
-    const deliverTranscript = () => {
-      const transcript = (finalTranscript || latestTranscript).trim();
-      if (!transcript || delivered) return;
-      delivered = true;
-      onResult(transcript);
-    };
-
-    recognition.lang = languageCode || 'en-US';
-    recognition.continuous = false;
-    recognition.interimResults = true;
-    recognition.maxAlternatives = 1;
-
-    recognition.onstart = () => setIsListening(true);
-
-    recognition.onresult = (event) => {
-      for (let i = event.resultIndex; i < event.results.length; i += 1) {
-        const result = event.results[i];
-        const transcript = result[0]?.transcript?.trim();
-        if (!transcript) continue;
-        heardSpeech = true;
-        latestTranscript = [finalTranscript, transcript].filter(Boolean).join(' ').trim();
-        if (result.isFinal) {
-          finalTranscript = [finalTranscript, transcript].filter(Boolean).join(' ').trim();
-        }
-      }
-    };
-
-    recognition.onerror = (event) => {
-      hadRecognitionError = true;
-      if (event?.error === 'not-allowed') {
-        setError('Microphone access was denied. Please allow it and try again.');
-      } else if (event?.error === 'audio-capture') {
-        setError('No microphone was detected. Please check your microphone and try again.');
-      } else if (event?.error === 'no-speech') {
-        setError('We did not catch any speech. Please try again.');
-      } else {
-        setError('Voice input stopped unexpectedly. Please try again.');
-      }
-      setIsListening(false);
-    };
-
-    recognition.onend = () => {
-      deliverTranscript();
-      if (!heardSpeech && !delivered && !hadRecognitionError) {
-        setError('We did not catch any speech. Please try again.');
-      }
-      setIsListening(false);
-    };
-
-    recognitionRef.current = recognition;
-    try {
-      recognition.start();
-    } catch {
-      setError('Unable to start voice input. Please try again.');
-      setIsListening(false);
-    }
-  }, [languageCode, onResult]);
-
-  const stopListening = useCallback(() => {
-    recognitionRef.current?.stop();
+  const clearError = useCallback(() => {
+    setTranscribeError('');
   }, []);
 
-  const clearError = useCallback(() => setError(''), []);
-
-  return { isListening, isSupported, error, startListening, stopListening, clearError };
+  return {
+    isListening: recorder.recording || transcribing,
+    isSupported,
+    error,
+    startListening,
+    stopListening,
+    clearError,
+  };
 }
 
 export const LANGUAGE_SPEECH_CODES: Record<string, string> = {
