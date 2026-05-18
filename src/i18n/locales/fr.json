@@ -4,7 +4,80 @@
     "returnHome": "Retour à l'accueil",
     "signOut": "Se déconnecter",
     "backToDashboard": "← Retour au tableau de bord",
-    "backToHome": "← Retour à l'accueil"
+    "backToHome": "← Retour à l'accueil",
+    "loading": "Chargement…",
+    "error": "Une erreur est survenue. Veuillez réessayer.",
+    "cancel": "Annuler",
+    "save": "Enregistrer"
+  },
+  "login": {
+    "eyebrow": "Connexion superviseur",
+    "title": "Bon retour.",
+    "intro": "Connectez-vous avec votre e-mail et mot de passe pour consulter les rapports de santé du projet.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "vous@organisation.org",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Votre mot de passe",
+    "submit": "Se connecter",
+    "submitting": "Connexion…",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "signup": "Créez-en un",
+    "forgot": "Mot de passe oublié ?",
+    "errorInvalid": "E-mail ou mot de passe non reconnu.",
+    "errorGeneric": "Échec de la connexion. Veuillez réessayer."
+  },
+  "signup": {
+    "eyebrow": "Créer un compte superviseur",
+    "title": "Configurez votre compte.",
+    "intro": "Créez votre compte. Un administrateur vous accordera ensuite l'accès au tableau de bord de santé du projet.",
+    "displayNameLabel": "Nom d'affichage",
+    "displayNamePlaceholder": "Comment devrions-nous vous appeler ?",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "vous@organisation.org",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Au moins 8 caractères",
+    "submit": "Créer le compte",
+    "submitting": "Création du compte…",
+    "haveAccount": "Vous avez déjà un compte ?",
+    "signin": "Se connecter",
+    "errorGeneric": "Échec de la création du compte. Veuillez réessayer."
+  },
+  "forgotPassword": {
+    "eyebrow": "Aide pour le mot de passe",
+    "title": "Réinitialiser votre mot de passe.",
+    "intro": "Entrez votre e-mail et nous vous enverrons un lien de réinitialisation.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "vous@organisation.org",
+    "submit": "Envoyer le lien",
+    "submitting": "Envoi…",
+    "sentTitle": "Vérifiez votre e-mail.",
+    "sentDetail": "S'il existe un compte pour cet e-mail, un lien de réinitialisation est en route.",
+    "backToLogin": "Retour à la connexion"
+  },
+  "resetPassword": {
+    "eyebrow": "Réinitialiser le mot de passe",
+    "title": "Choisissez un nouveau mot de passe.",
+    "intro": "Définissez un nouveau mot de passe pour terminer la réinitialisation.",
+    "passwordLabel": "Nouveau mot de passe",
+    "passwordPlaceholder": "Au moins 8 caractères",
+    "submit": "Réinitialiser le mot de passe",
+    "submitting": "Réinitialisation…",
+    "doneTitle": "Mot de passe mis à jour.",
+    "doneDetail": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+    "errorInvalidToken": "Ce lien de réinitialisation est invalide ou a expiré. Veuillez en demander un nouveau.",
+    "errorGeneric": "Nous n'avons pas pu réinitialiser votre mot de passe. Veuillez réessayer."
+  },
+  "pendingApproval": {
+    "eyebrow": "Accès en attente",
+    "title": "En attente d'approbation.",
+    "intro": "Votre compte est créé, mais un administrateur ne vous a pas encore accordé l'accès au tableau de bord de santé du projet. Lorsqu'il le fera, cette page redirigera automatiquement — n'hésitez pas à la laisser ouverte.",
+    "signOut": "Se déconnecter",
+    "checkAgain": "Vérifier à nouveau"
+  },
+  "notFound": {
+    "title": "Nous n'avons pas pu trouver cette page.",
+    "intro": "Le lien a peut-être été déplacé ou supprimé.",
+    "home": "Retour au début"
   },
   "brand": {
     "name": "OBT Project Health",

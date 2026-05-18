@@ -4,7 +4,80 @@
     "returnHome": "Rudi nyumbani",
     "signOut": "Toka",
     "backToDashboard": "← Rudi kwenye dashibodi",
-    "backToHome": "← Rudi nyumbani"
+    "backToHome": "← Rudi nyumbani",
+    "loading": "Inapakia…",
+    "error": "Hitilafu fulani imetokea. Tafadhali jaribu tena.",
+    "cancel": "Ghairi",
+    "save": "Hifadhi"
+  },
+  "login": {
+    "eyebrow": "Ingia kama msimamizi",
+    "title": "Karibu tena.",
+    "intro": "Ingia kwa barua pepe na nenosiri lako kusoma ripoti za afya ya mradi.",
+    "emailLabel": "Barua pepe",
+    "emailPlaceholder": "wewe@shirika.org",
+    "passwordLabel": "Nenosiri",
+    "passwordPlaceholder": "Nenosiri lako",
+    "submit": "Ingia",
+    "submitting": "Inakuingiza…",
+    "noAccount": "Huna akaunti?",
+    "signup": "Unda akaunti",
+    "forgot": "Umesahau nenosiri lako?",
+    "errorInvalid": "Barua pepe au nenosiri haitambuliki.",
+    "errorGeneric": "Imeshindwa kuingia. Tafadhali jaribu tena."
+  },
+  "signup": {
+    "eyebrow": "Unda akaunti ya msimamizi",
+    "title": "Sanidi akaunti yako.",
+    "intro": "Unda akaunti yako, kisha msimamizi atakupa ufikiaji wa dashibodi ya afya ya mradi.",
+    "displayNameLabel": "Jina la kuonyesha",
+    "displayNamePlaceholder": "Tukuite vipi?",
+    "emailLabel": "Barua pepe",
+    "emailPlaceholder": "wewe@shirika.org",
+    "passwordLabel": "Nenosiri",
+    "passwordPlaceholder": "Angalau herufi 8",
+    "submit": "Unda akaunti",
+    "submitting": "Inaunda akaunti…",
+    "haveAccount": "Tayari una akaunti?",
+    "signin": "Ingia",
+    "errorGeneric": "Imeshindwa kuunda akaunti. Tafadhali jaribu tena."
+  },
+  "forgotPassword": {
+    "eyebrow": "Msaada wa nenosiri",
+    "title": "Weka upya nenosiri lako.",
+    "intro": "Weka barua pepe yako na tutakutumia kiungo cha kuweka upya.",
+    "emailLabel": "Barua pepe",
+    "emailPlaceholder": "wewe@shirika.org",
+    "submit": "Tuma kiungo",
+    "submitting": "Inatuma…",
+    "sentTitle": "Angalia barua pepe yako.",
+    "sentDetail": "Iwapo akaunti ipo kwa barua pepe hiyo, kiungo cha kuweka upya kinakuja njiani.",
+    "backToLogin": "Rudi kuingia"
+  },
+  "resetPassword": {
+    "eyebrow": "Weka upya nenosiri",
+    "title": "Chagua nenosiri jipya.",
+    "intro": "Weka nenosiri jipya kumaliza uwekaji upya.",
+    "passwordLabel": "Nenosiri jipya",
+    "passwordPlaceholder": "Angalau herufi 8",
+    "submit": "Weka upya nenosiri",
+    "submitting": "Inaweka upya…",
+    "doneTitle": "Nenosiri limesasishwa.",
+    "doneDetail": "Sasa unaweza kuingia na nenosiri lako jipya.",
+    "errorInvalidToken": "Kiungo hiki si halali au kimepitwa na wakati. Tafadhali omba kingine.",
+    "errorGeneric": "Hatukuweza kuweka upya nenosiri lako. Tafadhali jaribu tena."
+  },
+  "pendingApproval": {
+    "eyebrow": "Ufikiaji unasubiri",
+    "title": "Inasubiri idhini.",
+    "intro": "Akaunti yako imeundwa, lakini msimamizi bado hajatoa ufikiaji wa dashibodi ya afya ya mradi. Atakapofanya hivyo, ukurasa huu utaelekezwa upya kiotomatiki — unaweza kuuacha wazi.",
+    "signOut": "Toka",
+    "checkAgain": "Angalia tena"
+  },
+  "notFound": {
+    "title": "Hatukuweza kupata ukurasa huo.",
+    "intro": "Kiungo huenda kimehamishwa au kimeondolewa.",
+    "home": "Rudi mwanzo"
   },
   "brand": {
     "name": "OBT Project Health",

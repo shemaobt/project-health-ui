@@ -4,7 +4,80 @@
     "returnHome": "Voltar ao início",
     "signOut": "Sair",
     "backToDashboard": "← Voltar ao painel",
-    "backToHome": "← Voltar ao início"
+    "backToHome": "← Voltar ao início",
+    "loading": "Carregando…",
+    "error": "Algo deu errado. Por favor, tente novamente.",
+    "cancel": "Cancelar",
+    "save": "Salvar"
+  },
+  "login": {
+    "eyebrow": "Acesso de supervisor",
+    "title": "Bem-vindo de volta.",
+    "intro": "Entre com seu e-mail e senha para revisar os relatórios de saúde do projeto.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "voce@organizacao.org",
+    "passwordLabel": "Senha",
+    "passwordPlaceholder": "Sua senha",
+    "submit": "Entrar",
+    "submitting": "Entrando…",
+    "noAccount": "Não tem uma conta?",
+    "signup": "Crie uma",
+    "forgot": "Esqueceu sua senha?",
+    "errorInvalid": "E-mail ou senha não reconhecidos.",
+    "errorGeneric": "Falha ao entrar. Por favor, tente novamente."
+  },
+  "signup": {
+    "eyebrow": "Criar uma conta de supervisor",
+    "title": "Configure sua conta.",
+    "intro": "Crie sua conta. Em seguida, um administrador concederá acesso ao painel de saúde do projeto.",
+    "displayNameLabel": "Nome de exibição",
+    "displayNamePlaceholder": "Como devemos chamá-lo?",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "voce@organizacao.org",
+    "passwordLabel": "Senha",
+    "passwordPlaceholder": "Pelo menos 8 caracteres",
+    "submit": "Criar conta",
+    "submitting": "Criando conta…",
+    "haveAccount": "Já tem uma conta?",
+    "signin": "Entrar",
+    "errorGeneric": "Falha ao criar conta. Por favor, tente novamente."
+  },
+  "forgotPassword": {
+    "eyebrow": "Ajuda com senha",
+    "title": "Redefinir sua senha.",
+    "intro": "Digite seu e-mail e enviaremos um link de redefinição.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "voce@organizacao.org",
+    "submit": "Enviar link de redefinição",
+    "submitting": "Enviando…",
+    "sentTitle": "Verifique seu e-mail.",
+    "sentDetail": "Se existir uma conta para esse e-mail, um link de redefinição está a caminho.",
+    "backToLogin": "Voltar para entrar"
+  },
+  "resetPassword": {
+    "eyebrow": "Redefinir senha",
+    "title": "Escolha uma nova senha.",
+    "intro": "Defina uma nova senha para concluir a redefinição.",
+    "passwordLabel": "Nova senha",
+    "passwordPlaceholder": "Pelo menos 8 caracteres",
+    "submit": "Redefinir senha",
+    "submitting": "Redefinindo…",
+    "doneTitle": "Senha atualizada.",
+    "doneDetail": "Agora você pode entrar com sua nova senha.",
+    "errorInvalidToken": "Este link de redefinição é inválido ou expirou. Por favor, solicite outro.",
+    "errorGeneric": "Não foi possível redefinir sua senha. Por favor, tente novamente."
+  },
+  "pendingApproval": {
+    "eyebrow": "Acesso pendente",
+    "title": "Aguardando aprovação.",
+    "intro": "Sua conta foi criada, mas um administrador ainda não concedeu acesso ao painel de saúde do projeto. Quando isso acontecer, esta página será redirecionada automaticamente — fique à vontade para deixá-la aberta.",
+    "signOut": "Sair",
+    "checkAgain": "Verificar novamente"
+  },
+  "notFound": {
+    "title": "Não foi possível encontrar essa página.",
+    "intro": "O link pode ter sido movido ou removido.",
+    "home": "Voltar ao início"
   },
   "brand": {
     "name": "OBT Project Health",

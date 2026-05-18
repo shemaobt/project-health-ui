@@ -4,7 +4,80 @@
     "returnHome": "Volver al inicio",
     "signOut": "Cerrar sesión",
     "backToDashboard": "← Volver al panel",
-    "backToHome": "← Volver al inicio"
+    "backToHome": "← Volver al inicio",
+    "loading": "Cargando…",
+    "error": "Algo salió mal. Por favor, inténtelo de nuevo.",
+    "cancel": "Cancelar",
+    "save": "Guardar"
+  },
+  "login": {
+    "eyebrow": "Acceso de supervisor",
+    "title": "Bienvenido de nuevo.",
+    "intro": "Inicie sesión con su correo y contraseña para revisar los informes de salud del proyecto.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "usted@organizacion.org",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Su contraseña",
+    "submit": "Iniciar sesión",
+    "submitting": "Iniciando sesión…",
+    "noAccount": "¿No tiene cuenta?",
+    "signup": "Cree una",
+    "forgot": "¿Olvidó su contraseña?",
+    "errorInvalid": "Correo o contraseña no reconocidos.",
+    "errorGeneric": "Error al iniciar sesión. Por favor, inténtelo de nuevo."
+  },
+  "signup": {
+    "eyebrow": "Crear cuenta de supervisor",
+    "title": "Configure su cuenta.",
+    "intro": "Cree su cuenta. Luego, un administrador le otorgará acceso al panel de salud del proyecto.",
+    "displayNameLabel": "Nombre para mostrar",
+    "displayNamePlaceholder": "¿Cómo deberíamos llamarle?",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "usted@organizacion.org",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Al menos 8 caracteres",
+    "submit": "Crear cuenta",
+    "submitting": "Creando cuenta…",
+    "haveAccount": "¿Ya tiene una cuenta?",
+    "signin": "Iniciar sesión",
+    "errorGeneric": "Error al crear la cuenta. Por favor, inténtelo de nuevo."
+  },
+  "forgotPassword": {
+    "eyebrow": "Ayuda con contraseña",
+    "title": "Restablecer su contraseña.",
+    "intro": "Ingrese su correo y le enviaremos un enlace de restablecimiento.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "usted@organizacion.org",
+    "submit": "Enviar enlace de restablecimiento",
+    "submitting": "Enviando…",
+    "sentTitle": "Revise su correo.",
+    "sentDetail": "Si existe una cuenta para ese correo, un enlace de restablecimiento está en camino.",
+    "backToLogin": "Volver a iniciar sesión"
+  },
+  "resetPassword": {
+    "eyebrow": "Restablecer contraseña",
+    "title": "Elija una nueva contraseña.",
+    "intro": "Establezca una nueva contraseña para terminar el restablecimiento.",
+    "passwordLabel": "Nueva contraseña",
+    "passwordPlaceholder": "Al menos 8 caracteres",
+    "submit": "Restablecer contraseña",
+    "submitting": "Restableciendo…",
+    "doneTitle": "Contraseña actualizada.",
+    "doneDetail": "Ya puede iniciar sesión con su nueva contraseña.",
+    "errorInvalidToken": "Este enlace de restablecimiento es inválido o ha expirado. Por favor, solicite uno nuevo.",
+    "errorGeneric": "No pudimos restablecer su contraseña. Por favor, inténtelo de nuevo."
+  },
+  "pendingApproval": {
+    "eyebrow": "Acceso pendiente",
+    "title": "Esperando aprobación.",
+    "intro": "Su cuenta está creada, pero un administrador aún no le ha concedido acceso al panel de salud del proyecto. Cuando lo haga, esta página se redirigirá automáticamente — puede dejarla abierta.",
+    "signOut": "Cerrar sesión",
+    "checkAgain": "Verificar de nuevo"
+  },
+  "notFound": {
+    "title": "No pudimos encontrar esa página.",
+    "intro": "El enlace puede haber sido movido o eliminado.",
+    "home": "Volver al inicio"
   },
   "brand": {
     "name": "OBT Project Health",

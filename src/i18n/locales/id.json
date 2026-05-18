@@ -4,7 +4,80 @@
     "returnHome": "Kembali ke beranda",
     "signOut": "Keluar",
     "backToDashboard": "← Kembali ke dasbor",
-    "backToHome": "← Kembali ke beranda"
+    "backToHome": "← Kembali ke beranda",
+    "loading": "Memuat…",
+    "error": "Terjadi kesalahan. Silakan coba lagi.",
+    "cancel": "Batal",
+    "save": "Simpan"
+  },
+  "login": {
+    "eyebrow": "Masuk supervisor",
+    "title": "Selamat datang kembali.",
+    "intro": "Masuk dengan email dan kata sandi Anda untuk meninjau laporan kesehatan proyek.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "anda@organisasi.org",
+    "passwordLabel": "Kata sandi",
+    "passwordPlaceholder": "Kata sandi Anda",
+    "submit": "Masuk",
+    "submitting": "Sedang masuk…",
+    "noAccount": "Belum punya akun?",
+    "signup": "Buat akun",
+    "forgot": "Lupa kata sandi?",
+    "errorInvalid": "Email atau kata sandi tidak dikenali.",
+    "errorGeneric": "Gagal masuk. Silakan coba lagi."
+  },
+  "signup": {
+    "eyebrow": "Buat akun supervisor",
+    "title": "Siapkan akun Anda.",
+    "intro": "Buat akun Anda, kemudian seorang administrator akan memberikan akses ke dasbor kesehatan proyek.",
+    "displayNameLabel": "Nama tampilan",
+    "displayNamePlaceholder": "Bagaimana kami harus menyapa Anda?",
+    "emailLabel": "Email",
+    "emailPlaceholder": "anda@organisasi.org",
+    "passwordLabel": "Kata sandi",
+    "passwordPlaceholder": "Minimal 8 karakter",
+    "submit": "Buat akun",
+    "submitting": "Membuat akun…",
+    "haveAccount": "Sudah punya akun?",
+    "signin": "Masuk",
+    "errorGeneric": "Gagal membuat akun. Silakan coba lagi."
+  },
+  "forgotPassword": {
+    "eyebrow": "Bantuan kata sandi",
+    "title": "Atur ulang kata sandi Anda.",
+    "intro": "Masukkan email Anda dan kami akan mengirim tautan untuk mengatur ulang.",
+    "emailLabel": "Email",
+    "emailPlaceholder": "anda@organisasi.org",
+    "submit": "Kirim tautan",
+    "submitting": "Mengirim…",
+    "sentTitle": "Periksa email Anda.",
+    "sentDetail": "Jika ada akun untuk email tersebut, tautan untuk mengatur ulang sedang dalam perjalanan.",
+    "backToLogin": "Kembali ke halaman masuk"
+  },
+  "resetPassword": {
+    "eyebrow": "Atur ulang kata sandi",
+    "title": "Pilih kata sandi baru.",
+    "intro": "Tetapkan kata sandi baru untuk menyelesaikan pengaturan ulang.",
+    "passwordLabel": "Kata sandi baru",
+    "passwordPlaceholder": "Minimal 8 karakter",
+    "submit": "Atur ulang kata sandi",
+    "submitting": "Mengatur ulang…",
+    "doneTitle": "Kata sandi diperbarui.",
+    "doneDetail": "Anda sekarang dapat masuk dengan kata sandi baru.",
+    "errorInvalidToken": "Tautan ini tidak valid atau telah kedaluwarsa. Silakan minta yang baru.",
+    "errorGeneric": "Kami tidak dapat mengatur ulang kata sandi. Silakan coba lagi."
+  },
+  "pendingApproval": {
+    "eyebrow": "Akses tertunda",
+    "title": "Menunggu persetujuan.",
+    "intro": "Akun Anda telah dibuat, tetapi administrator belum memberikan akses ke dasbor kesehatan proyek. Setelah dilakukan, halaman ini akan dialihkan secara otomatis — silakan biarkan terbuka.",
+    "signOut": "Keluar",
+    "checkAgain": "Periksa lagi"
+  },
+  "notFound": {
+    "title": "Kami tidak dapat menemukan halaman tersebut.",
+    "intro": "Tautan mungkin telah dipindahkan atau dihapus.",
+    "home": "Kembali ke awal"
   },
   "brand": {
     "name": "OBT Project Health",
