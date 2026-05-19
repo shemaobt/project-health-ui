@@ -296,19 +296,36 @@ interface InterviewRowProps {
   iv: InterviewSummary;
   onOpen: () => void;
   onOpenTeam: () => void;
+  onComplete?: () => void;
+  completing?: boolean;
 }
 
 function InterviewRowActions({
-  isCompleted, onOpen, onOpenTeam, layout,
+  isCompleted, onOpen, onOpenTeam, onComplete, completing, layout,
 }: {
   isCompleted: boolean;
   onOpen: () => void;
   onOpenTeam: () => void;
+  onComplete?: () => void;
+  completing?: boolean;
   layout: 'mobile' | 'desktop';
 }) {
   const { t } = useT();
   if (!isCompleted) {
-    return <span className="text-xs text-earth-400 italic font-serif pt-1">{t('interviewRow.inConversation')}</span>;
+    return (
+      <div className={layout === 'mobile' ? 'flex flex-col gap-2 pt-1' : 'flex items-center gap-2'}>
+        <span className="text-xs text-earth-400 italic font-serif pt-1">{t('interviewRow.inConversation')}</span>
+        {onComplete && (
+          <button
+            onClick={onComplete}
+            disabled={completing}
+            className={`focus-warm text-xs px-4 py-2 rounded-full ring-1 ring-earth-700/15 hover:ring-earth-700/30 hover:bg-cream-100 transition-colors ${completing ? 'opacity-60 cursor-not-allowed' : ''}`}
+          >
+            {completing ? t('common.loading') : t('adminDashboard.completeNow')}
+          </button>
+        )}
+      </div>
+    );
   }
   if (layout === 'mobile') {
     return (
@@ -340,7 +357,7 @@ function InterviewRowActions({
   );
 }
 
-export function InterviewRow({ iv, onOpen, onOpenTeam }: InterviewRowProps) {
+export function InterviewRow({ iv, onOpen, onOpenTeam, onComplete, completing }: InterviewRowProps) {
   const { t } = useT();
   const isCompleted = iv.status === 'completed';
   const dateLine = isCompleted ? formatDate(iv.date) : t('interviewRow.started', { date: formatDate(iv.date) });
@@ -359,7 +376,7 @@ export function InterviewRow({ iv, onOpen, onOpenTeam }: InterviewRowProps) {
         <div><StatusPill status={iv.status} /></div>
         <div className="text-sm text-earth-500">{dateLine}</div>
         <div className="flex items-center justify-end gap-2">
-          <InterviewRowActions isCompleted={isCompleted} onOpen={onOpen} onOpenTeam={onOpenTeam} layout="desktop" />
+          <InterviewRowActions isCompleted={isCompleted} onOpen={onOpen} onOpenTeam={onOpenTeam} onComplete={onComplete} completing={completing} layout="desktop" />
         </div>
       </div>
 
@@ -379,7 +396,7 @@ export function InterviewRow({ iv, onOpen, onOpenTeam }: InterviewRowProps) {
           <span aria-hidden="true" className="text-earth-700/15">·</span>
           <span>{dateLine}</span>
         </div>
-        <InterviewRowActions isCompleted={isCompleted} onOpen={onOpen} onOpenTeam={onOpenTeam} layout="mobile" />
+        <InterviewRowActions isCompleted={isCompleted} onOpen={onOpen} onOpenTeam={onOpenTeam} onComplete={onComplete} completing={completing} layout="mobile" />
       </div>
     </div>
   );

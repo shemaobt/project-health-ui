@@ -21,6 +21,31 @@ export default function AdminDashboard() {
   const [interviews, setInterviews] = useState<InterviewSummary[]>([]);
   const [reportByInterview, setReportByInterview] = useState<Map<string, string>>(new Map());
   const [loading, setLoading] = useState(true);
+  const [completingId, setCompletingId] = useState<string | null>(null);
+
+  const refresh = async () => {
+    const dash = await adminApi.getDashboard();
+    const { summaries, reportByInterview: map } = interviewSummariesAndReports(
+      dash.interviews,
+      dash.reports,
+    );
+    setInterviews(summaries);
+    setReportByInterview(map);
+  };
+
+  const handleCompleteNow = async (interviewId: string) => {
+    if (completingId) return;
+    setCompletingId(interviewId);
+    try {
+      await adminApi.adminForceCompleteInterview(interviewId);
+      await refresh();
+    } catch (e) {
+      console.error('adminForceCompleteInterview failed', e);
+      alert(t('adminDashboard.completeNowError'));
+    } finally {
+      setCompletingId(null);
+    }
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -113,6 +138,8 @@ export default function AdminDashboard() {
                 iv={iv}
                 onOpen={() => openReport(iv.id)}
                 onOpenTeam={() => openReport(iv.id)}
+                onComplete={() => void handleCompleteNow(iv.id)}
+                completing={completingId === iv.id}
               />
             ))}
           </div>
