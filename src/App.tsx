@@ -13,6 +13,7 @@ import ResetPassword from './pages/ResetPassword';
 import PendingApproval from './pages/PendingApproval';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminReport from './pages/AdminReport';
+import AdminInterviewView from './pages/AdminInterviewView';
 import InviteAdmin from './pages/InviteAdmin';
 import NotFound from './pages/NotFound';
 
@@ -43,6 +44,13 @@ export default function App() {
         <ProtectedRoute requireRoleKey={PH_ADMIN_ROLE}>
           <AdminDashboard />
         </ProtectedRoute>
+      </Route>
+      <Route path="/admin/interviews/:interviewId">
+        {(params) => (
+          <ProtectedRoute requireRoleKey={PH_ADMIN_ROLE}>
+            <AdminInterviewView interviewId={params.interviewId} />
+          </ProtectedRoute>
+        )}
       </Route>
       <Route path="/admin/reports/:reportId">
         {(params) => (

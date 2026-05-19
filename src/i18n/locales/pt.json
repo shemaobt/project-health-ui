@@ -199,7 +199,18 @@
     "openAdminReport": "Abrir relatório administrativo",
     "viewTeamReport": "Ver relatório da equipe",
     "completeNow": "Finalizar agora",
-    "completeNowError": "Não foi possível finalizar esta entrevista. Tente novamente."
+    "completeNowError": "Não foi possível finalizar esta entrevista. Tente novamente.",
+    "view": "Ver",
+    "delete": "Excluir",
+    "confirmDelete": "Excluir a entrevista de \"{project}\"? Esta ação não pode ser desfeita.",
+    "deleteError": "Não foi possível excluir esta entrevista. Tente novamente."
+  },
+  "adminInterviewView": {
+    "eyebrow": "Transcrição (somente leitura)",
+    "back": "Voltar ao painel",
+    "loadError": "Não foi possível carregar esta entrevista.",
+    "empty": "Nenhuma mensagem ainda.",
+    "messageCount": "{count} mensagens"
   },
   "adminReport": {
     "interviewEyebrow": "Entrevista · {date}",

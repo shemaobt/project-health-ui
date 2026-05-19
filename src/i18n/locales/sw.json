@@ -199,7 +199,18 @@
     "openAdminReport": "Fungua ripoti ya msimamizi",
     "viewTeamReport": "Tazama ripoti ya timu",
     "completeNow": "Maliza sasa",
-    "completeNowError": "Imeshindikana kumaliza mahojiano haya. Tafadhali jaribu tena."
+    "completeNowError": "Imeshindikana kumaliza mahojiano haya. Tafadhali jaribu tena.",
+    "view": "Tazama",
+    "delete": "Futa",
+    "confirmDelete": "Futa mahojiano ya \"{project}\"? Kitendo hiki hakiwezi kutenduliwa.",
+    "deleteError": "Imeshindikana kufuta mahojiano haya. Tafadhali jaribu tena."
+  },
+  "adminInterviewView": {
+    "eyebrow": "Nakala (kusoma tu)",
+    "back": "Rudi kwenye dashibodi",
+    "loadError": "Imeshindikana kupakia mahojiano haya.",
+    "empty": "Bado hakuna ujumbe.",
+    "messageCount": "Jumbe {count}"
   },
   "adminReport": {
     "interviewEyebrow": "Mahojiano · {date}",

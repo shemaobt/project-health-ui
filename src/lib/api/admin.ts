@@ -3,6 +3,7 @@ import type {
   AdminDashboardResponse,
   AdminInviteResponse,
   InterviewCompleteResponse,
+  InterviewDetailResponse,
 } from './types';
 
 export async function getDashboard(): Promise<AdminDashboardResponse> {
@@ -18,6 +19,19 @@ export async function inviteAdmin(email: string): Promise<AdminInviteResponse> {
     { email },
   );
   return data;
+}
+
+export async function getInterviewTranscript(
+  interviewId: string,
+): Promise<InterviewDetailResponse> {
+  const { data } = await api.get<InterviewDetailResponse>(
+    `/api/project-health/admin/interviews/${interviewId}`,
+  );
+  return data;
+}
+
+export async function deleteInterview(interviewId: string): Promise<void> {
+  await api.delete(`/api/project-health/admin/interviews/${interviewId}`);
 }
 
 export async function adminForceCompleteInterview(

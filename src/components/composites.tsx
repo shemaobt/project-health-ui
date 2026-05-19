@@ -297,24 +297,65 @@ interface InterviewRowProps {
   onOpen: () => void;
   onOpenTeam: () => void;
   onComplete?: () => void;
+  onView?: () => void;
+  onDelete?: () => void;
+  canDelete?: boolean;
   completing?: boolean;
+  deleting?: boolean;
+}
+
+function ViewDeleteButtons({
+  onView, onDelete, canDelete, deleting,
+}: {
+  onView?: () => void;
+  onDelete?: () => void;
+  canDelete?: boolean;
+  deleting?: boolean;
+}) {
+  const { t } = useT();
+  return (
+    <>
+      {onView && (
+        <button
+          onClick={onView}
+          className="focus-warm text-xs px-4 py-2 rounded-full text-earth-600 hover:text-earth-800 hover:bg-cream-200 transition-colors"
+        >
+          {t('adminDashboard.view')}
+        </button>
+      )}
+      {canDelete && onDelete && (
+        <button
+          onClick={onDelete}
+          disabled={deleting}
+          className={`focus-warm text-xs px-4 py-2 rounded-full text-clay-700 hover:text-clay-800 hover:bg-clay-500/10 transition-colors ${deleting ? 'opacity-60 cursor-not-allowed' : ''}`}
+        >
+          {deleting ? t('common.loading') : t('adminDashboard.delete')}
+        </button>
+      )}
+    </>
+  );
 }
 
 function InterviewRowActions({
-  isCompleted, onOpen, onOpenTeam, onComplete, completing, layout,
+  isCompleted, onOpen, onOpenTeam, onComplete, onView, onDelete, canDelete, completing, deleting, layout,
 }: {
   isCompleted: boolean;
   onOpen: () => void;
   onOpenTeam: () => void;
   onComplete?: () => void;
+  onView?: () => void;
+  onDelete?: () => void;
+  canDelete?: boolean;
   completing?: boolean;
+  deleting?: boolean;
   layout: 'mobile' | 'desktop';
 }) {
   const { t } = useT();
   if (!isCompleted) {
     return (
-      <div className={layout === 'mobile' ? 'flex flex-col gap-2 pt-1' : 'flex items-center gap-2'}>
+      <div className={layout === 'mobile' ? 'flex flex-col gap-2 pt-1' : 'flex items-center gap-2 flex-wrap justify-end'}>
         <span className="text-xs text-earth-400 italic font-serif pt-1">{t('interviewRow.inConversation')}</span>
+        <ViewDeleteButtons onView={onView} onDelete={onDelete} canDelete={canDelete} deleting={deleting} />
         {onComplete && (
           <button
             onClick={onComplete}
@@ -339,11 +380,15 @@ function InterviewRowActions({
           className="focus-warm w-full text-sm px-4 py-2.5 rounded-full text-earth-700 ring-1 ring-earth-700/15 hover:ring-earth-700/30 hover:bg-cream-100 transition-colors">
           {t('adminDashboard.viewTeamReport')}
         </button>
+        <div className="flex items-center justify-center gap-2">
+          <ViewDeleteButtons onView={onView} onDelete={onDelete} canDelete={canDelete} deleting={deleting} />
+        </div>
       </div>
     );
   }
   return (
     <>
+      <ViewDeleteButtons onView={onView} onDelete={onDelete} canDelete={canDelete} deleting={deleting} />
       <button onClick={onOpenTeam}
         className="focus-warm text-xs px-4 py-2.5 rounded-full text-earth-600 hover:text-earth-800 hover:bg-cream-200 transition-colors">
         {t('adminDashboard.teamReport')}
@@ -357,7 +402,7 @@ function InterviewRowActions({
   );
 }
 
-export function InterviewRow({ iv, onOpen, onOpenTeam, onComplete, completing }: InterviewRowProps) {
+export function InterviewRow({ iv, onOpen, onOpenTeam, onComplete, onView, onDelete, canDelete, completing, deleting }: InterviewRowProps) {
   const { t } = useT();
   const isCompleted = iv.status === 'completed';
   const dateLine = isCompleted ? formatDate(iv.date) : t('interviewRow.started', { date: formatDate(iv.date) });
@@ -376,7 +421,7 @@ export function InterviewRow({ iv, onOpen, onOpenTeam, onComplete, completing }:
         <div><StatusPill status={iv.status} /></div>
         <div className="text-sm text-earth-500">{dateLine}</div>
         <div className="flex items-center justify-end gap-2">
-          <InterviewRowActions isCompleted={isCompleted} onOpen={onOpen} onOpenTeam={onOpenTeam} onComplete={onComplete} completing={completing} layout="desktop" />
+          <InterviewRowActions isCompleted={isCompleted} onOpen={onOpen} onOpenTeam={onOpenTeam} onComplete={onComplete} onView={onView} onDelete={onDelete} canDelete={canDelete} completing={completing} deleting={deleting} layout="desktop" />
         </div>
       </div>
 
@@ -396,7 +441,7 @@ export function InterviewRow({ iv, onOpen, onOpenTeam, onComplete, completing }:
           <span aria-hidden="true" className="text-earth-700/15">·</span>
           <span>{dateLine}</span>
         </div>
-        <InterviewRowActions isCompleted={isCompleted} onOpen={onOpen} onOpenTeam={onOpenTeam} onComplete={onComplete} completing={completing} layout="mobile" />
+        <InterviewRowActions isCompleted={isCompleted} onOpen={onOpen} onOpenTeam={onOpenTeam} onComplete={onComplete} onView={onView} onDelete={onDelete} canDelete={canDelete} completing={completing} deleting={deleting} layout="mobile" />
       </div>
     </div>
   );

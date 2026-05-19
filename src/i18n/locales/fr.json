@@ -199,7 +199,18 @@
     "openAdminReport": "Ouvrir le rapport admin",
     "viewTeamReport": "Voir le rapport d'équipe",
     "completeNow": "Terminer maintenant",
-    "completeNowError": "Impossible de terminer cet entretien. Veuillez réessayer."
+    "completeNowError": "Impossible de terminer cet entretien. Veuillez réessayer.",
+    "view": "Voir",
+    "delete": "Supprimer",
+    "confirmDelete": "Supprimer l'entretien de « {project} » ? Cette action est irréversible.",
+    "deleteError": "Impossible de supprimer cet entretien. Veuillez réessayer."
+  },
+  "adminInterviewView": {
+    "eyebrow": "Transcription (lecture seule)",
+    "back": "Retour au tableau de bord",
+    "loadError": "Impossible de charger cet entretien.",
+    "empty": "Aucun message pour le moment.",
+    "messageCount": "{count} messages"
   },
   "adminReport": {
     "interviewEyebrow": "Entretien · {date}",
