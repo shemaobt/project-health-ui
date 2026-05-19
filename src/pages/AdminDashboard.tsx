@@ -127,7 +127,13 @@ export default function AdminDashboard() {
               {t('adminDashboard.intro')}
             </p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
+            {isPlatformAdmin && (
+              <SecondaryButton onClick={() => setLocation('/admin/prompts')}>
+                <Icon name="plus" />
+                {t('adminDashboard.managePrompts')}
+              </SecondaryButton>
+            )}
             <SecondaryButton onClick={() => setLocation('/admin/invite')}>
               <Icon name="plus" />
               {t('adminDashboard.invite')}

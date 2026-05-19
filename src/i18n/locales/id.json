@@ -185,6 +185,7 @@
     "title": "Bagaimana keadaan tim-tim.",
     "intro": "Percakapan terkini dengan tim penerjemahan di seluruh jaringan. Buka laporan untuk melihat apa yang mereka bagikan — dan apa yang perlu dipikirkan selanjutnya.",
     "invite": "Undang supervisor",
+    "managePrompts": "Kelola prompt",
     "statTotalLabel": "Total wawancara",
     "statTotalHint": "di semua proyek",
     "statCompletedLabel": "Selesai",
@@ -204,6 +205,25 @@
     "delete": "Hapus",
     "confirmDelete": "Hapus wawancara \"{project}\"? Tindakan ini tidak dapat dibatalkan.",
     "deleteError": "Tidak dapat menghapus wawancara ini. Silakan coba lagi."
+  },
+  "adminPrompts": {
+    "eyebrow": "Admin platform",
+    "title": "Prompt agen",
+    "intro": "Edit prompt yang menjalankan setiap agen. Perubahan berlaku pada giliran wawancara berikutnya.",
+    "back": "Kembali ke dasbor",
+    "nameLabel": "Nama",
+    "descriptionLabel": "Deskripsi",
+    "templateLabel": "Templat",
+    "placeholdersHint": "Placeholder wajib:",
+    "version": "Versi {version}",
+    "unsaved": "Perubahan belum disimpan",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "reset": "Setel ulang ke default",
+    "confirmReset": "Setel ulang \"{name}\" ke templat default? Perubahan Anda akan hilang.",
+    "loadError": "Tidak dapat memuat prompt.",
+    "saveError": "Tidak dapat menyimpan prompt ini.",
+    "resetError": "Tidak dapat menyetel ulang prompt ini."
   },
   "adminInterviewView": {
     "eyebrow": "Transkrip (hanya baca)",

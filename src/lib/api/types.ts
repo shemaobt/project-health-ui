@@ -190,3 +190,26 @@ export interface AdminInviteResponse {
   access_request_id: string | null;
   granted: boolean;
 }
+
+export interface AgentPromptDto {
+  id: string;
+  prompt_key: string;
+  name: string;
+  description: string;
+  template: string;
+  placeholders: string[];
+  version: number;
+  updated_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AgentPromptListResponse {
+  prompts: AgentPromptDto[];
+}
+
+export interface AgentPromptUpdateRequest {
+  name?: string;
+  description?: string;
+  template?: string;
+}

@@ -185,6 +185,7 @@
     "title": "Cómo están los equipos.",
     "intro": "Conversaciones recientes con equipos de traducción en la red. Abra un informe para ver lo que compartieron — y qué considerar a continuación.",
     "invite": "Invitar a un supervisor",
+    "managePrompts": "Gestionar prompts",
     "statTotalLabel": "Total de entrevistas",
     "statTotalHint": "en todos los proyectos",
     "statCompletedLabel": "Completadas",
@@ -204,6 +205,25 @@
     "delete": "Eliminar",
     "confirmDelete": "¿Eliminar la entrevista de \"{project}\"? Esta acción no se puede deshacer.",
     "deleteError": "No se pudo eliminar esta entrevista. Inténtelo de nuevo."
+  },
+  "adminPrompts": {
+    "eyebrow": "Administrador de plataforma",
+    "title": "Prompts de los agentes",
+    "intro": "Edite los prompts que guían a cada agente. Los cambios surtirán efecto en el próximo turno de la entrevista.",
+    "back": "Volver al panel",
+    "nameLabel": "Nombre",
+    "descriptionLabel": "Descripción",
+    "templateLabel": "Plantilla",
+    "placeholdersHint": "Marcadores requeridos:",
+    "version": "Versión {version}",
+    "unsaved": "Cambios sin guardar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "reset": "Restablecer",
+    "confirmReset": "¿Restablecer \"{name}\" a su plantilla por defecto? Se perderán los cambios.",
+    "loadError": "No se pudieron cargar los prompts.",
+    "saveError": "No se pudo guardar este prompt.",
+    "resetError": "No se pudo restablecer este prompt."
   },
   "adminInterviewView": {
     "eyebrow": "Transcripción (solo lectura)",

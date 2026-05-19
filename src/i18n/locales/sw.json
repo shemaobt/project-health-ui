@@ -185,6 +185,7 @@
     "title": "Jinsi timu zinavyofanya.",
     "intro": "Mazungumzo ya hivi karibuni na timu za tafsiri katika mtandao. Fungua ripoti kuona walichoshiriki — na nini cha kufikiria baadaye.",
     "invite": "Mwalike msimamizi",
+    "managePrompts": "Simamia prompts",
     "statTotalLabel": "Jumla ya mahojiano",
     "statTotalHint": "katika miradi yote",
     "statCompletedLabel": "Yamekamilika",
@@ -204,6 +205,25 @@
     "delete": "Futa",
     "confirmDelete": "Futa mahojiano ya \"{project}\"? Kitendo hiki hakiwezi kutenduliwa.",
     "deleteError": "Imeshindikana kufuta mahojiano haya. Tafadhali jaribu tena."
+  },
+  "adminPrompts": {
+    "eyebrow": "Msimamizi wa jukwaa",
+    "title": "Prompts za wakala",
+    "intro": "Hariri prompts zinazoongoza kila wakala. Mabadiliko yataanza kufanya kazi katika zamu inayofuata.",
+    "back": "Rudi kwenye dashibodi",
+    "nameLabel": "Jina",
+    "descriptionLabel": "Maelezo",
+    "templateLabel": "Kiolezo",
+    "placeholdersHint": "Vihifadhi vinavyohitajika:",
+    "version": "Toleo la {version}",
+    "unsaved": "Mabadiliko hayajahifadhiwa",
+    "save": "Hifadhi",
+    "cancel": "Ghairi",
+    "reset": "Rejesha chaguo-msingi",
+    "confirmReset": "Rejesha \"{name}\" kwa kiolezo cha chaguo-msingi? Mabadiliko yatapotea.",
+    "loadError": "Imeshindikana kupakia prompts.",
+    "saveError": "Imeshindikana kuhifadhi prompt hii.",
+    "resetError": "Imeshindikana kurejesha prompt hii."
   },
   "adminInterviewView": {
     "eyebrow": "Nakala (kusoma tu)",
