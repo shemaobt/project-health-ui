@@ -131,7 +131,8 @@
     "sessionExpired": "Sesi wawancara Anda telah berakhir. Silakan mulai lagi untuk melanjutkan.",
     "startOver": "Mulai lagi",
     "sendError": "Terjadi kesalahan saat mengirim pesan Anda. Silakan coba lagi sebentar.",
-    "wrapUpHint": "Saat Anda siap, ketuk \"{button}\" di atas untuk menerima laporan tim."
+    "wrapUpHint": "Saat Anda siap, ketuk \"{button}\" di atas untuk menerima laporan tim.",
+    "justNow": "Baru saja"
   },
   "completion": {
     "inProgressTitle": "Mengumpulkan yang kami dengar…",

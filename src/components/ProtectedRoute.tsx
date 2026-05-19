@@ -2,6 +2,7 @@ import { useEffect, type ReactNode } from 'react';
 import { Redirect, useLocation } from 'wouter';
 import { useAuthStore } from '../lib/stores/authStore';
 import { PH_ADMIN_ROLE } from '../lib/constants';
+import { useT } from '../lib/i18n';
 
 interface Props {
   children: ReactNode;
@@ -18,6 +19,7 @@ export default function ProtectedRoute({
 }: Props) {
   const { user, tokens, loaded, appRoles, refreshMe } = useAuthStore();
   const [, setLocation] = useLocation();
+  const { t } = useT();
 
   useEffect(() => {
     if (!loaded && tokens?.access) {
@@ -42,7 +44,7 @@ export default function ProtectedRoute({
   if (!loaded && tokens?.access) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-earth-500 text-sm">Loading…</div>
+        <div className="text-earth-500 text-sm">{t('common.loading')}</div>
       </div>
     );
   }

@@ -131,7 +131,8 @@
     "sessionExpired": "Kipindi chako cha mahojiano kimemalizika. Tafadhali anza tena ili kuendelea.",
     "startOver": "Anza tena",
     "sendError": "Hitilafu imetokea wakati wa kutuma ujumbe wako. Tafadhali jaribu tena baada ya muda.",
-    "wrapUpHint": "Ukiwa tayari, gusa \"{button}\" hapo juu kupokea ripoti ya timu."
+    "wrapUpHint": "Ukiwa tayari, gusa \"{button}\" hapo juu kupokea ripoti ya timu.",
+    "justNow": "Sasa hivi"
   },
   "completion": {
     "inProgressTitle": "Kukusanya tuliyosikia…",

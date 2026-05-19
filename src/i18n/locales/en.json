@@ -131,7 +131,8 @@
     "sessionExpired": "Your interview session has timed out. Please start over to continue.",
     "startOver": "Start over",
     "sendError": "Something went wrong sending your message. Please try again in a moment.",
-    "wrapUpHint": "When you're ready, tap \"{button}\" above to receive your team report."
+    "wrapUpHint": "When you're ready, tap \"{button}\" above to receive your team report.",
+    "justNow": "Just now"
   },
   "completion": {
     "inProgressTitle": "Gathering what we heard…",
