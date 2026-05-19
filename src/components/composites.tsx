@@ -354,13 +354,12 @@ function InterviewRowActions({
   if (!isCompleted) {
     return (
       <div className={layout === 'mobile' ? 'flex flex-col gap-2 pt-1' : 'flex items-center gap-2 flex-wrap justify-end'}>
-        <span className="text-xs text-earth-400 italic font-serif pt-1">{t('interviewRow.inConversation')}</span>
         <ViewDeleteButtons onView={onView} onDelete={onDelete} canDelete={canDelete} deleting={deleting} />
         {onComplete && (
           <button
             onClick={onComplete}
             disabled={completing}
-            className={`focus-warm text-xs px-4 py-2 rounded-full ring-1 ring-earth-700/15 hover:ring-earth-700/30 hover:bg-cream-100 transition-colors ${completing ? 'opacity-60 cursor-not-allowed' : ''}`}
+            className={`focus-warm text-xs px-4 py-2 rounded-full bg-earth-700 text-cream-50 hover:bg-earth-800 transition-colors ${completing ? 'opacity-60 cursor-not-allowed' : ''}`}
           >
             {completing ? t('common.loading') : t('adminDashboard.completeNow')}
           </button>
@@ -403,9 +402,9 @@ function InterviewRowActions({
 }
 
 export function InterviewRow({ iv, onOpen, onOpenTeam, onComplete, onView, onDelete, canDelete, completing, deleting }: InterviewRowProps) {
-  const { t } = useT();
+  const { t, locale } = useT();
   const isCompleted = iv.status === 'completed';
-  const dateLine = isCompleted ? formatDate(iv.date) : t('interviewRow.started', { date: formatDate(iv.date) });
+  const dateLine = isCompleted ? formatDate(iv.date, locale) : t('interviewRow.started', { date: formatDate(iv.date, locale) });
   const langName = langLabel(iv.languageCode);
   return (
     <div className="border-b border-earth-700/5 last:border-b-0 hover:bg-cream-100/60 transition-colors">
