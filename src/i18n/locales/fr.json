@@ -130,7 +130,8 @@
     "presentCount": "{count} présents",
     "sessionExpired": "Votre session d'entretien a expiré. Veuillez recommencer pour continuer.",
     "startOver": "Recommencer",
-    "sendError": "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer dans un instant."
+    "sendError": "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer dans un instant.",
+    "wrapUpHint": "Quand vous êtes prêt, appuyez sur « {button} » en haut pour recevoir le rapport de l'équipe."
   },
   "completion": {
     "inProgressTitle": "Rassemblement de ce que nous avons entendu…",
@@ -196,7 +197,9 @@
     "teamReport": "Rapport d'équipe",
     "adminReport": "Rapport admin",
     "openAdminReport": "Ouvrir le rapport admin",
-    "viewTeamReport": "Voir le rapport d'équipe"
+    "viewTeamReport": "Voir le rapport d'équipe",
+    "completeNow": "Terminer maintenant",
+    "completeNowError": "Impossible de terminer cet entretien. Veuillez réessayer."
   },
   "adminReport": {
     "interviewEyebrow": "Entretien · {date}",

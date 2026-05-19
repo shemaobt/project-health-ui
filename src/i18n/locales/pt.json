@@ -130,7 +130,8 @@
     "presentCount": "{count} presentes",
     "sessionExpired": "Sua sessão de entrevista expirou. Por favor, comece novamente para continuar.",
     "startOver": "Começar novamente",
-    "sendError": "Algo deu errado ao enviar sua mensagem. Por favor, tente novamente em um momento."
+    "sendError": "Algo deu errado ao enviar sua mensagem. Por favor, tente novamente em um momento.",
+    "wrapUpHint": "Quando estiver pronta, toque em \"{button}\" acima para receber o relatório da equipe."
   },
   "completion": {
     "inProgressTitle": "Reunindo o que ouvimos…",
@@ -196,7 +197,9 @@
     "teamReport": "Relatório da equipe",
     "adminReport": "Relatório administrativo",
     "openAdminReport": "Abrir relatório administrativo",
-    "viewTeamReport": "Ver relatório da equipe"
+    "viewTeamReport": "Ver relatório da equipe",
+    "completeNow": "Finalizar agora",
+    "completeNowError": "Não foi possível finalizar esta entrevista. Tente novamente."
   },
   "adminReport": {
     "interviewEyebrow": "Entrevista · {date}",

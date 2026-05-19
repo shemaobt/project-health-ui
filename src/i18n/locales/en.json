@@ -130,7 +130,8 @@
     "presentCount": "{count} present",
     "sessionExpired": "Your interview session has timed out. Please start over to continue.",
     "startOver": "Start over",
-    "sendError": "Something went wrong sending your message. Please try again in a moment."
+    "sendError": "Something went wrong sending your message. Please try again in a moment.",
+    "wrapUpHint": "When you're ready, tap \"{button}\" above to receive your team report."
   },
   "completion": {
     "inProgressTitle": "Gathering what we heard…",
@@ -196,7 +197,9 @@
     "teamReport": "Team report",
     "adminReport": "Admin report",
     "openAdminReport": "Open admin report",
-    "viewTeamReport": "View team report"
+    "viewTeamReport": "View team report",
+    "completeNow": "Complete now",
+    "completeNowError": "Could not complete this interview. Please try again."
   },
   "adminReport": {
     "interviewEyebrow": "Interview · {date}",

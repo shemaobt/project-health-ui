@@ -130,7 +130,8 @@
     "presentCount": "{count} hadir",
     "sessionExpired": "Sesi wawancara Anda telah berakhir. Silakan mulai lagi untuk melanjutkan.",
     "startOver": "Mulai lagi",
-    "sendError": "Terjadi kesalahan saat mengirim pesan Anda. Silakan coba lagi sebentar."
+    "sendError": "Terjadi kesalahan saat mengirim pesan Anda. Silakan coba lagi sebentar.",
+    "wrapUpHint": "Saat Anda siap, ketuk \"{button}\" di atas untuk menerima laporan tim."
   },
   "completion": {
     "inProgressTitle": "Mengumpulkan yang kami dengar…",
@@ -196,7 +197,9 @@
     "teamReport": "Laporan tim",
     "adminReport": "Laporan admin",
     "openAdminReport": "Buka laporan admin",
-    "viewTeamReport": "Lihat laporan tim"
+    "viewTeamReport": "Lihat laporan tim",
+    "completeNow": "Selesaikan sekarang",
+    "completeNowError": "Tidak dapat menyelesaikan wawancara ini. Silakan coba lagi."
   },
   "adminReport": {
     "interviewEyebrow": "Wawancara · {date}",
