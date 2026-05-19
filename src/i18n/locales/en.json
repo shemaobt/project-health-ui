@@ -185,6 +185,7 @@
     "title": "How the teams are doing.",
     "intro": "Recent conversations with translation teams across the network. Open a report to see what they shared — and what to think about next.",
     "invite": "Invite a supervisor",
+    "managePrompts": "Manage prompts",
     "statTotalLabel": "Total interviews",
     "statTotalHint": "across all projects",
     "statCompletedLabel": "Completed",
@@ -211,6 +212,25 @@
     "loadError": "Could not load this interview.",
     "empty": "No messages yet.",
     "messageCount": "{count} messages"
+  },
+  "adminPrompts": {
+    "eyebrow": "Platform admin",
+    "title": "Agent prompts",
+    "intro": "Edit the prompts that drive each project-health agent. Changes take effect on the next interview turn.",
+    "back": "Back to dashboard",
+    "nameLabel": "Name",
+    "descriptionLabel": "Description",
+    "templateLabel": "Template",
+    "placeholdersHint": "Required placeholders:",
+    "version": "Version {version}",
+    "unsaved": "Unsaved changes",
+    "save": "Save",
+    "cancel": "Cancel",
+    "reset": "Reset to default",
+    "confirmReset": "Reset \"{name}\" to its default template? Your edits will be lost.",
+    "loadError": "Could not load the prompts.",
+    "saveError": "Could not save this prompt.",
+    "resetError": "Could not reset this prompt."
   },
   "adminReport": {
     "interviewEyebrow": "Interview · {date}",

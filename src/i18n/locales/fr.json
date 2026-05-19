@@ -185,6 +185,7 @@
     "title": "Comment vont les équipes.",
     "intro": "Conversations récentes avec les équipes de traduction du réseau. Ouvrez un rapport pour voir ce qu'elles ont partagé — et à quoi penser ensuite.",
     "invite": "Inviter un superviseur",
+    "managePrompts": "Gérer les prompts",
     "statTotalLabel": "Total des entretiens",
     "statTotalHint": "tous projets confondus",
     "statCompletedLabel": "Terminés",
@@ -204,6 +205,25 @@
     "delete": "Supprimer",
     "confirmDelete": "Supprimer l'entretien de « {project} » ? Cette action est irréversible.",
     "deleteError": "Impossible de supprimer cet entretien. Veuillez réessayer."
+  },
+  "adminPrompts": {
+    "eyebrow": "Administrateur de plateforme",
+    "title": "Prompts des agents",
+    "intro": "Modifiez les prompts qui guident chaque agent. Les modifications prennent effet au prochain tour d'entretien.",
+    "back": "Retour au tableau de bord",
+    "nameLabel": "Nom",
+    "descriptionLabel": "Description",
+    "templateLabel": "Modèle",
+    "placeholdersHint": "Variables requises :",
+    "version": "Version {version}",
+    "unsaved": "Modifications non enregistrées",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "reset": "Réinitialiser",
+    "confirmReset": "Réinitialiser « {name} » au modèle par défaut ? Vos modifications seront perdues.",
+    "loadError": "Impossible de charger les prompts.",
+    "saveError": "Impossible d'enregistrer ce prompt.",
+    "resetError": "Impossible de réinitialiser ce prompt."
   },
   "adminInterviewView": {
     "eyebrow": "Transcription (lecture seule)",

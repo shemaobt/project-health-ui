@@ -185,6 +185,7 @@
     "title": "Como as equipes estão.",
     "intro": "Conversas recentes com equipes de tradução pela rede. Abra um relatório para ver o que compartilharam — e no que pensar a seguir.",
     "invite": "Convidar um supervisor",
+    "managePrompts": "Gerenciar prompts",
     "statTotalLabel": "Total de entrevistas",
     "statTotalHint": "em todos os projetos",
     "statCompletedLabel": "Concluídas",
@@ -204,6 +205,25 @@
     "delete": "Excluir",
     "confirmDelete": "Excluir a entrevista de \"{project}\"? Esta ação não pode ser desfeita.",
     "deleteError": "Não foi possível excluir esta entrevista. Tente novamente."
+  },
+  "adminPrompts": {
+    "eyebrow": "Administrador da plataforma",
+    "title": "Prompts dos agentes",
+    "intro": "Edite os prompts que orientam cada agente do project-health. As alterações entram em vigor no próximo turno da entrevista.",
+    "back": "Voltar ao painel",
+    "nameLabel": "Nome",
+    "descriptionLabel": "Descrição",
+    "templateLabel": "Modelo",
+    "placeholdersHint": "Marcadores obrigatórios:",
+    "version": "Versão {version}",
+    "unsaved": "Alterações não salvas",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "reset": "Restaurar padrão",
+    "confirmReset": "Restaurar \"{name}\" para o modelo padrão? Suas edições serão perdidas.",
+    "loadError": "Não foi possível carregar os prompts.",
+    "saveError": "Não foi possível salvar este prompt.",
+    "resetError": "Não foi possível restaurar este prompt."
   },
   "adminInterviewView": {
     "eyebrow": "Transcrição (somente leitura)",

@@ -14,6 +14,7 @@ import PendingApproval from './pages/PendingApproval';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminReport from './pages/AdminReport';
 import AdminInterviewView from './pages/AdminInterviewView';
+import AdminPrompts from './pages/AdminPrompts';
 import InviteAdmin from './pages/InviteAdmin';
 import NotFound from './pages/NotFound';
 
@@ -62,6 +63,11 @@ export default function App() {
       <Route path="/admin/invite">
         <ProtectedRoute requireRoleKey={PH_ADMIN_ROLE}>
           <InviteAdmin />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/prompts">
+        <ProtectedRoute requirePlatformAdmin>
+          <AdminPrompts />
         </ProtectedRoute>
       </Route>
 
