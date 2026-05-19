@@ -130,7 +130,8 @@
     "presentCount": "{count} wapo",
     "sessionExpired": "Kipindi chako cha mahojiano kimemalizika. Tafadhali anza tena ili kuendelea.",
     "startOver": "Anza tena",
-    "sendError": "Hitilafu imetokea wakati wa kutuma ujumbe wako. Tafadhali jaribu tena baada ya muda."
+    "sendError": "Hitilafu imetokea wakati wa kutuma ujumbe wako. Tafadhali jaribu tena baada ya muda.",
+    "wrapUpHint": "Ukiwa tayari, gusa \"{button}\" hapo juu kupokea ripoti ya timu."
   },
   "completion": {
     "inProgressTitle": "Kukusanya tuliyosikia…",
@@ -196,7 +197,9 @@
     "teamReport": "Ripoti ya timu",
     "adminReport": "Ripoti ya msimamizi",
     "openAdminReport": "Fungua ripoti ya msimamizi",
-    "viewTeamReport": "Tazama ripoti ya timu"
+    "viewTeamReport": "Tazama ripoti ya timu",
+    "completeNow": "Maliza sasa",
+    "completeNowError": "Imeshindikana kumaliza mahojiano haya. Tafadhali jaribu tena."
   },
   "adminReport": {
     "interviewEyebrow": "Mahojiano · {date}",

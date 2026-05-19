@@ -87,9 +87,11 @@ export default function Interview({ interviewId }: InterviewProps) {
   };
 
   const teamTurnCount = messages.filter((m) => m.role === 'team').length;
+  const openingComplete = (coverage?.missing_opening_fields?.length ?? 1) === 0;
   const sufficient = teamTurnCount >= 10
-    && (coverage?.missing_opening_fields?.length ?? 1) === 0
+    && openingComplete
     && coverage?.interview_phase === 'closing';
+  const canFinish = sufficient || (teamTurnCount >= 10 && openingComplete);
   const coverageRatio = sufficient ? 1 : Math.min(0.95, 0.4 + teamTurnCount * 0.05);
   const langName = language ? langLabel(language) : '';
 
@@ -104,7 +106,7 @@ export default function Interview({ interviewId }: InterviewProps) {
       >
         <PacingHint coverage={coverageRatio} sufficient={sufficient} />
         <PrimaryButton
-          disabled={!sufficient}
+          disabled={!canFinish}
           onClick={() => setLocation('/completion')}
           className="!px-5 sm:!px-7 !py-2.5 sm:!py-3 text-xs sm:text-sm">
           {t('interview.finish')}
@@ -168,6 +170,11 @@ export default function Interview({ interviewId }: InterviewProps) {
 
       <footer className="border-t border-earth-700/8 bg-cream-100/85 backdrop-blur-sm">
         <div className="max-w-3xl mx-auto px-3 sm:px-6 py-3 sm:py-5">
+          {sufficient && (
+            <div className="mb-2 text-[12px] text-earth-500 px-1" role="note">
+              {t('interview.wrapUpHint', { button: t('interview.finish') })}
+            </div>
+          )}
           <div className={`bg-cream-50 rounded-2xl ring-1 ${voice.isListening ? 'ring-clay-400/50' : 'ring-earth-700/10'} transition-all duration-200 p-2 pl-3 flex items-end gap-2 sm:gap-3`}>
             <MicButton
               listening={voice.isListening}
