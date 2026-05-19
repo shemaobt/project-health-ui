@@ -139,9 +139,26 @@ export default function Welcome() {
         </div>
       </main>
 
-      <footer className="max-w-6xl mx-auto px-5 sm:px-8 pb-8 sm:pb-10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-earth-400 text-center sm:text-left">
-        <span>{t('welcome.footerName')}</span>
-        <span>{t('welcome.footerAvailable', { languages: LANGUAGES.map((L) => L.native).join(' · ') })}</span>
+      <footer className="max-w-6xl mx-auto px-5 sm:px-8 pb-8 sm:pb-10 flex flex-col gap-3 text-xs text-earth-400">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+          <span>{t('welcome.footerName')}</span>
+          <span>{t('welcome.footerAvailable', { languages: LANGUAGES.map((L) => L.native).join(' · ') })}</span>
+        </div>
+        {/* Shema attribution — keep identical with project-health-ui/src/pages/Login.tsx and translation-helper-ui/src/components/shells/AuthShell.tsx */}
+        <p
+          style={{
+            margin: 0,
+            textAlign: 'center',
+            fontSize: 11,
+            fontWeight: 500,
+            letterSpacing: '0.04em',
+            color: 'currentColor',
+            opacity: 0.55,
+            fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+          }}
+        >
+          by Shema Bible Translation · YWAM Kansas City
+        </p>
       </footer>
     </div>
   );
