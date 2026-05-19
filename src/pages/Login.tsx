@@ -104,6 +104,22 @@ export default function Login() {
               </span>
             </div>
           </Card>
+
+          {/* Shema attribution — keep identical with translation-helper-ui/src/components/shells/AuthShell.tsx */}
+          <p
+            style={{
+              marginTop: 24,
+              textAlign: 'center',
+              fontSize: 11,
+              fontWeight: 500,
+              letterSpacing: '0.04em',
+              color: 'currentColor',
+              opacity: 0.55,
+              fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+            }}
+          >
+            by Shema Bible Translation · YWAM Kansas City
+          </p>
         </div>
       </main>
     </div>
