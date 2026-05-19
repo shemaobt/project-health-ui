@@ -131,7 +131,8 @@
     "sessionExpired": "Sua sessão de entrevista expirou. Por favor, comece novamente para continuar.",
     "startOver": "Começar novamente",
     "sendError": "Algo deu errado ao enviar sua mensagem. Por favor, tente novamente em um momento.",
-    "wrapUpHint": "Quando estiver pronta, toque em \"{button}\" acima para receber o relatório da equipe."
+    "wrapUpHint": "Quando estiver pronta, toque em \"{button}\" acima para receber o relatório da equipe.",
+    "justNow": "Agora mesmo"
   },
   "completion": {
     "inProgressTitle": "Reunindo o que ouvimos…",

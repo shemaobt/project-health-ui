@@ -131,7 +131,8 @@
     "sessionExpired": "Su sesión de entrevista ha expirado. Por favor, comience de nuevo para continuar.",
     "startOver": "Comenzar de nuevo",
     "sendError": "Algo salió mal al enviar su mensaje. Por favor, inténtelo de nuevo en un momento.",
-    "wrapUpHint": "Cuando esté listo, toque \"{button}\" arriba para recibir el informe del equipo."
+    "wrapUpHint": "Cuando esté listo, toque \"{button}\" arriba para recibir el informe del equipo.",
+    "justNow": "Justo ahora"
   },
   "completion": {
     "inProgressTitle": "Recogiendo lo que escuchamos…",

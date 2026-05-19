@@ -142,7 +142,7 @@ export default function Interview({ interviewId }: InterviewProps) {
             {messages.map((m, idx) => (
               <Message
                 key={`${m.timestamp}-${idx}`}
-                message={toLegacyMessage(m, idx)}
+                message={toLegacyMessage(m, idx, t('interview.justNow'))}
                 playing={tts.playingId === idx}
                 onTogglePlay={() => tts.toggle({ id: idx, text: m.content })}
                 respondents={[]}
@@ -220,11 +220,15 @@ export default function Interview({ interviewId }: InterviewProps) {
   );
 }
 
-function toLegacyMessage(m: { role: string; content: string; timestamp: string }, idx: number): MessagePayload {
+function toLegacyMessage(
+  m: { role: string; content: string; timestamp: string },
+  idx: number,
+  justNowLabel: string,
+): MessagePayload {
   return {
     id: idx,
     role: m.role as 'facilitator' | 'team',
     text: m.content,
-    time: 'Just now',
+    time: justNowLabel,
   };
 }
