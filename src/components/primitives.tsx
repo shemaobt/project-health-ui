@@ -565,7 +565,7 @@ export function SectionHeader({ eyebrow }: { eyebrow?: string }) {
   );
 }
 
-export function formatDate(iso: string | null | undefined): string {
+export function formatDate(iso: string | null | undefined, locale: string = 'en-US'): string {
   if (!iso) return '';
-  return new Date(iso + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  return new Date(iso + 'T00:00:00').toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' });
 }
