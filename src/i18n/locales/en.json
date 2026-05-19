@@ -199,7 +199,18 @@
     "openAdminReport": "Open admin report",
     "viewTeamReport": "View team report",
     "completeNow": "Complete now",
-    "completeNowError": "Could not complete this interview. Please try again."
+    "completeNowError": "Could not complete this interview. Please try again.",
+    "view": "View",
+    "delete": "Delete",
+    "confirmDelete": "Delete the interview for \"{project}\"? This cannot be undone.",
+    "deleteError": "Could not delete this interview. Please try again."
+  },
+  "adminInterviewView": {
+    "eyebrow": "Read-only transcript",
+    "back": "Back to dashboard",
+    "loadError": "Could not load this interview.",
+    "empty": "No messages yet.",
+    "messageCount": "{count} messages"
   },
   "adminReport": {
     "interviewEyebrow": "Interview · {date}",

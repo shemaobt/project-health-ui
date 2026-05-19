@@ -199,7 +199,18 @@
     "openAdminReport": "Buka laporan admin",
     "viewTeamReport": "Lihat laporan tim",
     "completeNow": "Selesaikan sekarang",
-    "completeNowError": "Tidak dapat menyelesaikan wawancara ini. Silakan coba lagi."
+    "completeNowError": "Tidak dapat menyelesaikan wawancara ini. Silakan coba lagi.",
+    "view": "Lihat",
+    "delete": "Hapus",
+    "confirmDelete": "Hapus wawancara \"{project}\"? Tindakan ini tidak dapat dibatalkan.",
+    "deleteError": "Tidak dapat menghapus wawancara ini. Silakan coba lagi."
+  },
+  "adminInterviewView": {
+    "eyebrow": "Transkrip (hanya baca)",
+    "back": "Kembali ke dasbor",
+    "loadError": "Tidak dapat memuat wawancara ini.",
+    "empty": "Belum ada pesan.",
+    "messageCount": "{count} pesan"
   },
   "adminReport": {
     "interviewEyebrow": "Wawancara · {date}",

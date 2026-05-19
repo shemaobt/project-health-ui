@@ -17,11 +17,13 @@ export default function AdminDashboard() {
   const [, setLocation] = useLocation();
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
+  const isPlatformAdmin = user?.is_platform_admin ?? false;
 
   const [interviews, setInterviews] = useState<InterviewSummary[]>([]);
   const [reportByInterview, setReportByInterview] = useState<Map<string, string>>(new Map());
   const [loading, setLoading] = useState(true);
   const [completingId, setCompletingId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const refresh = async () => {
     const dash = await adminApi.getDashboard();
@@ -31,6 +33,24 @@ export default function AdminDashboard() {
     );
     setInterviews(summaries);
     setReportByInterview(map);
+  };
+
+  const handleDelete = async (iv: InterviewSummary) => {
+    if (deletingId) return;
+    const confirmed = window.confirm(
+      t('adminDashboard.confirmDelete', { project: iv.project }),
+    );
+    if (!confirmed) return;
+    setDeletingId(iv.id);
+    try {
+      await adminApi.deleteInterview(iv.id);
+      await refresh();
+    } catch (e) {
+      console.error('deleteInterview failed', e);
+      alert(t('adminDashboard.deleteError'));
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   const handleCompleteNow = async (interviewId: string) => {
@@ -139,7 +159,11 @@ export default function AdminDashboard() {
                 onOpen={() => openReport(iv.id)}
                 onOpenTeam={() => openReport(iv.id)}
                 onComplete={() => void handleCompleteNow(iv.id)}
+                onView={() => setLocation(`/admin/interviews/${iv.id}`)}
+                onDelete={() => void handleDelete(iv)}
+                canDelete={isPlatformAdmin}
                 completing={completingId === iv.id}
+                deleting={deletingId === iv.id}
               />
             ))}
           </div>
